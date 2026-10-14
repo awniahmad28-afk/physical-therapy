@@ -1,6 +1,24 @@
-# Physical Therapy Clinic: 5 Website Design Concepts
+# Physical Therapy Clinic: Website Design Concepts
 
-Open **`index.html`** in a browser to see all five designs side by side with live thumbnails. Each design is also a self-contained page in `designs/`.
+Open **`index.html`** in a browser to see the designs side by side with live thumbnails.
+
+## The Elegant Collection (current direction)
+
+Three classic, refined designs in `designs/elegant/`, built on the editorial style of Design 4 (Atelier). Media paths from these files start with `../../media/`.
+
+| Design | Mood | Colors (hex) | Fonts | Layout | Key media zones |
+|---|---|---|---|---|---|
+| **Maison** `e1-maison.html` | Formal, timeless, hotel-like | Ivory `#F6F1E9`, Ink `#1C1A17`, Champagne `#B89B6A`, Taupe `#D9CFC0` | Bodoni Moda / Jost | Centred monogram nav; framed 2:1 hero with an ivory card on top; centred philosophy; 2×2 treatments; dark film band (2.39:1 ▶) with three figures; arched portraits; centred underline booking form | Hero ▣/▶ 2400×1200 (2:1), treatments ▣ 1250×1000 (5:4), film ▶ 2560×1072, portraits ▣ 900×1200 (3:4) |
+| **Nocturne** `e2-nocturne.html` | Dark, discreet, exclusive | Forest `#14201B`, Cream `#EDE6D8`, Brass `#C2A36B`, Sage `#3A4A42` | Italiana / Figtree | Split-screen hero (text left, full-height ▣ right); statement; ruled treatment list with hover-reveal thumbnails; full-bleed 21:9 ▶ film; ▣ image + 3-stage method; quote band; 4 tall portraits; split booking (dark ▣ panel / cream form) | Hero ▣/▶ 1200×1600 (3:4), thumbs ▣ 800×600, film ▶ 2520×1080 (21:9), method ▣ 1200×1500, portraits ▣ 800×1200 (2:3) |
+| **Linen** `e3-linen.html` | Soft, airy, welcoming | Paper `#FBF9F6`, Charcoal `#2B2926`, Clay `#A88B76`, Blush `#F1E9E1` | Instrument Serif / Instrument Sans | Headline left with two overlapping ▣ right; blush philosophy band with drop cap; staggered triptych of tall ▣; portrait ▶ + facts; press wordmarks; quote + portrait; dark booking band with a day/time picker | Hero ▣ 1200×1500 + ▣ 800×800, triptych ▣ 1000×1500 (2:3), studio ▶ 1080×1350 (4:5), portrait ▣ 900×1200 |
+
+**Which suits you:** Maison for a traditional private practice; Nocturne for an exclusive or city-centre clinic; Linen for a boutique physio and Pilates studio or women's health; Atelier for the boldest editorial look.
+
+---
+
+## Earlier concepts
+
+The first five concepts are in `designs/`.
 
 Legend: ▣ = image zone, ▶ = video zone. Every zone is a placeholder you can replace with your own media (see [How to add your own media](#how-to-add-your-own-photos-and-videos)).
 

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegant 3 · Linen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Linen: airy and light, wide margins, asymmetric. Overlapping images, tall triptych, time-slot booking. */
+  :root{
+    --paper:#FBF9F6; --charcoal:#2B2926; --stone:#CFC6B8; --clay:#A88B76; --blush:#F1E9E1; --muted:#807870;
+    --ph1:#F0EBE4; --ph2:#E9E2D9; --phText:#9C9085;
+    --display:"Instrument Serif",Georgia,serif; --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);color:var(--charcoal);background:var(--paper);line-height:1.7;font-size:16px}
+  h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.02;text-wrap:balance}
+  em{font-style:italic;color:var(--clay)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 56px}
+  .tag{font:500 11px var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;background:var(--charcoal);color:var(--paper);font:500 14px var(--body);border:none;cursor:pointer}
+  .btn.line{background:transparent;color:var(--charcoal);border:1px solid var(--charcoal)}
+  section{padding:150px 0}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,2px);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:500 11px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.1em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+  figcaption{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.04em}
+
+  nav{display:flex;justify-content:space-between;align-items:center;height:96px}
+  .logo{font:400 30px var(--display)}
+  .logo em{color:var(--clay)}
+  .menu{display:flex;gap:36px;font-size:14px;align-items:center}
+
+  /* hero: headline left / overlapping images right */
+  .hero{display:grid;grid-template-columns:6fr 6fr;gap:56px;align-items:center;padding:56px 0 120px}
+  .hero h1{font-size:clamp(56px,7.4vw,120px);letter-spacing:-.01em}
+  .hero p{max-width:440px;color:var(--muted);font-size:18px;margin:32px 0 40px}
+  .hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .stack{position:relative;padding:0 0 18% 14%}
+  .stack figure:first-child .media{--ar:4/5}
+  .stack .over{position:absolute;left:0;bottom:0;width:46%;border:10px solid var(--paper)}
+  .stack .over .media{--ar:1/1}
+  .stack .note{position:absolute;right:-12px;top:24px;writing-mode:vertical-rl;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+
+  /* philosophy: drop cap */
+  .phil{background:var(--blush)}
+  .phil .wrap{display:grid;grid-template-columns:1fr 1fr;gap:96px}
+  .phil h2{font-size:clamp(44px,5vw,76px)}
+  .phil p{font-size:18px;color:#4D4842;margin-bottom:22px}
+  .phil p:first-of-type::first-letter{font:400 92px/.8 var(--display);float:left;margin:8px 14px 0 0;color:var(--clay)}
+
+  /* triptych */
+  .head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:64px;flex-wrap:wrap}
+  .head h2{font-size:clamp(44px,5vw,76px)}
+  .trip{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .trip article:nth-child(2){margin-top:96px}
+  .trip .media{--ar:2/3}
+  .trip h3{font-size:34px;margin:24px 0 8px}
+  .trip p{color:var(--muted);font-size:15px;max-width:340px}
+  .trip .more{display:inline-block;margin-top:14px;font-size:13px;border-bottom:1px solid var(--stone);padding-bottom:2px}
+
+  /* video beside text */
+  .vid .wrap{display:grid;grid-template-columns:5fr 7fr;gap:96px;align-items:center}
+  .vid .media{--ar:4/5}
+  .vid h2{font-size:clamp(40px,4.4vw,64px);margin:20px 0 26px}
+  .vid p{color:var(--muted);max-width:520px;margin-bottom:34px}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--stone);padding-top:28px;gap:24px}
+  .facts b{display:block;font:400 42px var(--display)}
+  .facts span{font-size:13px;color:var(--muted)}
+
+  /* press */
+  .press{padding:56px 0;border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
+  .press .wrap{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;font:italic 400 26px var(--display);color:#A79D92}
+
+  /* testimonial: image + quote */
+  .test .wrap{display:grid;grid-template-columns:7fr 4fr;gap:80px;align-items:end}
+  .test blockquote{font:400 clamp(32px,3.8vw,56px)/1.18 var(--display)}
+  .test cite{display:block;margin-top:30px;font-style:normal;font-size:14px;color:var(--muted)}
+  .test .media{--ar:3/4}
+
+  /* booking with time slots */
+  .book{background:var(--charcoal);color:var(--paper)}
+  .book .wrap{display:grid;grid-template-columns:5fr 7fr;gap:96px}
+  .book h2{font-size:clamp(48px,5.6vw,88px);margin:20px 0 24px}
+  .book .tag{color:#A39A90}
+  .book .info{color:#BDB4AA;font-size:15px}
+  .card{background:var(--paper);color:var(--charcoal);padding:48px;border-radius:4px}
+  .card h3{font-size:30px;margin-bottom:6px}
+  .days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:28px 0 18px}
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+  .chip input{position:absolute;opacity:0}
+  .chip span{display:block;text-align:center;padding:12px 6px;border:1px solid var(--stone);border-radius:3px;font-size:14px;cursor:pointer;transition:.2s}
+  .chip span small{display:block;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .chip input:checked + span{background:var(--charcoal);color:var(--paper);border-color:var(--charcoal)}
+  .chip input:checked + span small{color:#BDB4AA}
+  .chip input:focus-visible + span{outline:2px solid var(--clay);outline-offset:2px}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+  .fields input{padding:15px 16px;border:1px solid var(--stone);border-radius:3px;background:transparent;font:inherit}
+
+  footer{padding:96px 0 40px}
+  .fg{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:32px;font-size:14px;color:var(--muted)}
+  .fg .tag{display:block;margin-bottom:14px;color:var(--charcoal)}
+  footer small{display:block;margin-top:80px;font-size:12px;color:var(--muted)}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--charcoal);color:var(--paper);font:500 12px var(--body);padding:9px 16px;border-radius:999px}
+
+  @media (max-width:960px){
+    .menu a:not(.btn){display:none}
+    .hero,.phil .wrap,.vid .wrap,.test .wrap,.book .wrap{grid-template-columns:1fr;gap:48px}
+    .trip{grid-template-columns:1fr}
+    .trip article:nth-child(2){margin-top:0}
+    .fg{grid-template-columns:1fr 1fr}
+    .card{padding:28px 20px}
+    .slots{grid-template-columns:repeat(2,1fr)}
+    .days{grid-template-columns:repeat(3,1fr)}
+    .fields{grid-template-columns:1fr}
+    section{padding:96px 0}
+    .wrap{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav><div class="logo">Linen <em>Physio</em></div>
+    <div class="menu"><a href="#approach">Approach</a><a href="#care">Care</a><a href="#studio">Studio</a><a href="#book" class="btn">Book a visit</a></div></nav>
+</header>
+
+<!-- HERO · headline left / two OVERLAPPING IMAGES right -->
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="tag">Physiotherapy · Pilates · Recovery</div>
+      <h1 style="margin-top:24px">Gentle hands.<br><em>Lasting</em> strength.</h1>
+      <p>A light-filled physiotherapy studio where expert treatment and calm surroundings help you move with ease again.</p>
+      <div class="ctas"><a href="#book" class="btn">Book a visit →</a><a href="#care" class="btn line">Our care</a></div>
+    </div>
+    <div class="stack">
+      <!-- MEDIA ZONE · MAIN HERO IMAGE · 1200×1500 · 4:5 -->
+      <figure><div class="media" data-label="MAIN IMAGE&#10;1200 × 1500 · 4:5&#10;studio, natural light"><img src="" alt=""></div></figure>
+      <!-- MEDIA ZONE · OVERLAP DETAIL IMAGE · 800×800 · 1:1 -->
+      <figure class="over"><div class="media" data-label="DETAIL&#10;800 × 800 · 1:1"><img src="" alt=""></div></figure>
+      <span class="note">Studio · Primrose Hill</span>
+    </div>
+  </section>
+</div>
+
+<!-- PHILOSOPHY · blush band, heading left / drop-cap text right -->
+<section id="approach" class="phil">
+  <div class="wrap">
+    <div><div class="tag">Approach</div><h2 style="margin-top:20px">Care that feels as good as it <em>works</em>.</h2></div>
+    <div>
+      <p>We believe recovery happens best when you feel at ease. Our studio is bright and quiet, our sessions are unhurried, and your physiotherapist stays with you from first visit to last.</p>
+      <p>Each plan blends evidence-based manual therapy with mindful movement, so the progress you make in the studio carries into everyday life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CARE · staggered triptych of tall IMAGES -->
+<section id="care">
+  <div class="wrap">
+    <div class="head"><div><div class="tag">Care</div><h2 style="margin-top:20px">Three ways we help</h2></div><a href="#book" class="btn line">See all treatments</a></div>
+    <div class="trip">
+      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Physiotherapy</h3><p>Assessment and hands-on treatment for pain, injury and post-operative recovery.</p><a class="more" href="#book">Learn more</a></article>
+      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Clinical Pilates</h3><p>Private and duo reformer sessions guided by a physiotherapist.</p><a class="more" href="#book">Learn more</a></article>
+      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Pre &amp; Postnatal</h3><p>Pelvic health and gentle strength before and after birth.</p><a class="more" href="#book">Learn more</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO · portrait VIDEO left / text + facts right -->
+<section id="studio" class="vid" style="padding-top:0">
+  <div class="wrap">
+    <!-- MEDIA ZONE · STUDIO VIDEO · 1080×1350 · 4:5 -->
+    <figure><div class="media" data-label="▶ STUDIO VIDEO&#10;1080 × 1350 · 4:5 · MP4, muted loop"><video src="" poster="" autoplay muted loop playsinline></video></div><figcaption>Morning light in the reformer studio</figcaption></figure>
+    <div>
+      <div class="tag">The studio</div>
+      <h2>A place to <em>slow down</em> and heal</h2>
+      <p>Four private treatment rooms and a reformer studio, set in a restored Victorian building with tall windows and linen-soft interiors.</p>
+      <div class="facts"><div><b>4</b><span>Private rooms</span></div><div><b>55'</b><span>Every session</span></div><div><b>4.9</b><span>Google rating</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS · italic wordmarks -->
+<div class="press"><div class="wrap"><span class="tag" style="font-style:normal">As featured in</span><span>Vogue</span><span>The Times</span><span>Harper's Bazaar</span><span>Condé Nast Traveller</span></div></div>
+
+<!-- TESTIMONIAL · large quote left / PORTRAIT right -->
+<section class="test">
+  <div class="wrap">
+    <div><div class="tag">Patient words</div><blockquote style="margin-top:24px">"I came in with a back I'd given up on. I left with strength I didn't know I had, and I genuinely looked forward to every visit."</blockquote><cite>Harriet B. · Patient since 2024</cite></div>
+    <figure class="media" data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure>
+  </div>
+</section>
+
+<!-- BOOKING · dark band, intro left / time-slot card right -->
+<section id="book" class="book">
+  <div class="wrap">
+    <div>
+      <div class="tag">Book a visit</div>
+      <h2>Choose a time that <em>suits you</em>.</h2>
+      <p class="info">21 Chalcot Road, Primrose Hill<br>+44 20 0000 0000 · hello@linenphysio.com<br>Mon–Fri 7:30–20:00 · Sat 8:30–14:00</p>
+    </div>
+    <form class="card" onsubmit="return false">
+      <h3>Initial assessment</h3>
+      <p style="color:var(--muted);font-size:14px">55 minutes · with a senior physiotherapist</p>
+      <div class="days">
+        <label class="chip"><input type="radio" name="d" id="d1" checked><span><small>Mon</small>16</span></label>
+        <label class="chip"><input type="radio" name="d" id="d2"><span><small>Tue</small>17</span></label>
+        <label class="chip"><input type="radio" name="d" id="d3"><span><small>Wed</small>18</span></label>
+        <label class="chip"><input type="radio" name="d" id="d4"><span><small>Thu</small>19</span></label>
+        <label class="chip"><input type="radio" name="d" id="d5"><span><small>Fri</small>20</span></label>
+      </div>
+      <div class="slots">
+        <label class="chip"><input type="radio" name="t" id="t1"><span>08:00</span></label>
+        <label class="chip"><input type="radio" name="t" id="t2" checked><span>10:30</span></label>
+        <label class="chip"><input type="radio" name="t" id="t3"><span>14:00</span></label>
+        <label class="chip"><input type="radio" name="t" id="t4"><span>18:15</span></label>
+      </div>
+      <div class="fields"><input id="l-name" placeholder="Full name"><input id="l-contact" placeholder="Email or phone"></div>
+      <button class="btn">Request this time →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div><div class="logo">Linen <em>Physio</em></div></div>
+      <div><span class="tag">Visit</span>21 Chalcot Road<br>London NW1</div>
+      <div><span class="tag">Contact</span>+44 20 0000 0000<br>hello@linenphysio.com</div>
+      <div><span class="tag">Follow</span>Instagram<br>Journal</div>
+    </div>
+    <small>© 2026 Linen Physio</small>
+  </div>
+</footer>
+
+<a class="back" href="../../index.html">← All designs</a>
+</body>
+</html>

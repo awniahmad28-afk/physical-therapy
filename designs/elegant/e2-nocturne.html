@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegant 2 · Nocturne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Nocturne: dark and intimate. Deep forest green, cream and brass. Split-screen hero, hover-reveal treatment list. */
+  :root{
+    --forest:#14201B; --deep:#0E1713; --cream:#EDE6D8; --brass:#C2A36B; --sage:#3A4A42; --muted:#9BA69E;
+    --ph1:#1A2822; --ph2:#1F2E27; --phText:#7F918A;
+    --display:Italiana,"Didot","Times New Roman",serif; --body:Figtree,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);font-weight:300;color:var(--cream);background:var(--forest);line-height:1.75;font-size:16px}
+  h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;text-wrap:balance}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+  .eyebrow{font:500 11px var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--brass)}
+  .link{display:inline-flex;align-items:center;gap:14px;font:500 12px var(--body);letter-spacing:.2em;text-transform:uppercase}
+  .link::after{content:"";width:40px;height:1px;background:var(--brass);transition:width .3s}
+  .link:hover::after{width:64px}
+  .btn{display:inline-block;padding:18px 40px;background:var(--brass);color:var(--deep);font:500 12px var(--body);letter-spacing:.22em;text-transform:uppercase;border:none;cursor:pointer}
+  section{padding:150px 0}
+  hr{border:0;border-top:1px solid var(--sage)}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,0);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:500 11px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.1em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* split hero: text left, full-height IMAGE right */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+  .hero .l{display:flex;flex-direction:column;justify-content:space-between;padding:40px 64px 64px}
+  nav{display:flex;justify-content:space-between;align-items:center}
+  .logo{font:400 28px var(--display);letter-spacing:.08em}
+  .menu{display:flex;gap:32px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero h1{font-size:clamp(56px,7vw,112px);margin:28px 0}
+  .hero p{max-width:440px;color:var(--muted);font-size:17px;margin-bottom:44px}
+  .hero .meta{display:flex;gap:48px;border-top:1px solid var(--sage);padding-top:28px;font-size:13px;color:var(--muted)}
+  .hero .meta b{display:block;font:400 30px var(--display);color:var(--cream)}
+  .hero .r{position:relative}
+  .hero .r .media{position:absolute;inset:0;aspect-ratio:auto}
+  .hero .r .badge{position:absolute;right:40px;top:40px;z-index:2;width:120px;height:120px;border-radius:50%;border:1px solid var(--brass);display:grid;place-items:center;text-align:center;font:500 10px/1.6 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--brass);background:rgba(14,23,19,.6)}
+
+  /* intro */
+  .intro{display:grid;grid-template-columns:1fr 2fr;gap:64px}
+  .intro p{font:400 clamp(28px,3.2vw,44px)/1.3 var(--display)}
+  .intro p em{font-style:normal;color:var(--brass)}
+
+  /* treatments: hover-reveal list */
+  .list{margin-top:64px;border-top:1px solid var(--sage)}
+  .item{display:grid;grid-template-columns:1.2fr 1fr 220px;gap:40px;align-items:center;padding:36px 0;border-bottom:1px solid var(--sage);transition:padding .35s}
+  .item:hover{padding-left:20px}
+  .item h3{font-size:clamp(34px,3.6vw,52px);transition:color .3s}
+  .item:hover h3{color:var(--brass)}
+  .item p{color:var(--muted);font-size:15px}
+  .item .media{--ar:4/3;opacity:.6;transition:opacity .35s}
+  .item:hover .media{opacity:1}
+  .item .media::after{font-size:9px}
+
+  /* film */
+  .film{padding:0}
+  .film .media{--ar:21/9}
+  .film-cap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:28px 40px;border-bottom:1px solid var(--sage);font-size:14px;color:var(--muted);flex-wrap:wrap}
+
+  /* method: image + steps */
+  .method{display:grid;grid-template-columns:5fr 6fr;gap:96px;align-items:center}
+  .method .media{--ar:4/5}
+  .method h2{font-size:clamp(44px,5vw,72px);margin:20px 0 40px}
+  .steps{display:grid;gap:30px}
+  .steps div{display:grid;grid-template-columns:120px 1fr;gap:20px;padding-bottom:30px;border-bottom:1px solid var(--sage)}
+  .steps span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);padding-top:6px}
+  .steps h3{font-size:28px;margin-bottom:6px}
+  .steps p{color:var(--muted);font-size:15px}
+
+  /* quote */
+  .quote{background:var(--deep);text-align:center}
+  .quote blockquote{font:400 clamp(32px,4.4vw,62px)/1.2 var(--display);max-width:1080px;margin:36px auto}
+  .quote cite{font-style:normal;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+  /* practitioners: 4-up tall */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px}
+  .team .media{--ar:2/3}
+  .team h3{font-size:26px;margin-top:20px}
+  .team p{font-size:13px;color:var(--muted);letter-spacing:.06em}
+
+  /* booking split */
+  .book{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--sage)}
+  .book .l{padding:120px 64px;position:relative;overflow:hidden}
+  .book .l .media{position:absolute;inset:0;aspect-ratio:auto;opacity:.35}
+  .book .l .media::after{top:auto;bottom:24px;transform:none}
+  .book .l .txt{position:relative;z-index:2}
+  .book h2{font-size:clamp(48px,6vw,96px);margin:20px 0 28px}
+  .book .r{background:var(--cream);color:var(--deep);padding:120px 64px;display:flex;align-items:center}
+  .book form{display:grid;gap:30px;width:100%;max-width:520px}
+  .book label{display:grid;gap:6px;font:500 10px var(--body);letter-spacing:.26em;text-transform:uppercase;color:#5E6A63}
+  .book input,.book select{border:none;border-bottom:1px solid #B8B1A3;background:transparent;padding:10px 0;font:300 18px var(--body);color:var(--deep);outline:none}
+  .book input:focus,.book select:focus{border-color:var(--brass)}
+  .book .btn{background:var(--deep);color:var(--cream);justify-self:start}
+
+  footer{padding:72px 0 36px}
+  .frow{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;font-size:14px;color:var(--muted);padding-bottom:56px}
+  .frow .eyebrow{display:block;margin-bottom:14px}
+  footer small{display:flex;justify-content:space-between;border-top:1px solid var(--sage);padding-top:24px;font-size:12px;color:var(--muted)}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--brass);color:var(--deep);font:500 11px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:10px 16px}
+
+  @media (max-width:960px){
+    .hero,.intro,.method,.book{grid-template-columns:1fr}
+    .hero .l{padding:28px 20px 48px;min-height:auto}
+    .hero .r{min-height:70vh}
+    .menu{display:none}
+    .item{grid-template-columns:1fr;gap:12px}
+    .item .media{opacity:1}
+    .team{grid-template-columns:1fr 1fr}
+    .book .l,.book .r{padding:72px 20px}
+    .frow{grid-template-columns:1fr 1fr}
+    section{padding:96px 0}
+    .wrap{padding:0 20px}
+    .film-cap{padding:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO · split screen: text column left / full-height IMAGE right -->
+<section class="hero" style="padding:0">
+  <div class="l">
+    <nav><div class="logo">Nocturne</div><div class="menu"><a href="#treatments">Treatments</a><a href="#method">Method</a><a href="#team">Clinicians</a><a href="#book">Book</a></div></nav>
+    <div>
+      <div class="eyebrow">Physiotherapy &amp; Movement Medicine</div>
+      <h1>Recovery, refined.</h1>
+      <p>A private physiotherapy practice for people who expect clinical excellence and quiet, personal attention.</p>
+      <a href="#book" class="link">Arrange a consultation</a>
+    </div>
+    <div class="meta"><div><b>60 min</b>Every session</div><div><b>Late</b>Until 21:00</div><div><b>Private</b>Suites only</div></div>
+  </div>
+  <div class="r">
+    <!-- MEDIA ZONE · HERO PORTRAIT IMAGE (or VIDEO) · 1200×1600 · 3:4, fills right half -->
+    <figure class="media" data-label="HERO IMAGE or VIDEO&#10;1200 × 1600 · 3:4&#10;low-key, warm light"><img src="" alt="Physiotherapist treating a patient"></figure>
+    <div class="badge">Since<br>2011</div>
+  </div>
+</section>
+
+<!-- INTRO · label column + large statement -->
+<section>
+  <div class="wrap intro">
+    <div class="eyebrow">The practice</div>
+    <p>We see fewer patients so we can give each one more. You'll have <em>one clinician</em>, <em>one hour</em> and a plan that fits your life.</p>
+  </div>
+</section>
+
+<!-- TREATMENTS · ruled list; IMAGE thumbnail brightens on hover -->
+<section id="treatments" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Treatments</div>
+    <div class="list">
+      <div class="item"><h3>Manual Therapy</h3><p>Joint mobilisation and soft-tissue release for persistent pain.</p><figure class="media" data-label="800 × 600 · 4:3"><img src="" alt=""></figure></div>
+      <div class="item"><h3>Orthopaedic Rehabilitation</h3><p>Before and after surgery, coordinated with your consultant.</p><figure class="media" data-label="800 × 600 · 4:3"><img src="" alt=""></figure></div>
+      <div class="item"><h3>Spinal Care</h3><p>Assessment and treatment for back and neck conditions.</p><figure class="media" data-label="800 × 600 · 4:3"><img src="" alt=""></figure></div>
+      <div class="item"><h3>Reformer Pilates</h3><p>Private studio sessions led by a physiotherapist.</p><figure class="media" data-label="800 × 600 · 4:3"><img src="" alt=""></figure></div>
+    </div>
+  </div>
+</section>
+
+<!-- FILM · full-bleed 21:9 VIDEO with caption bar -->
+<section class="film">
+  <!-- MEDIA ZONE · CINEMATIC VIDEO · 2520×1080 · 21:9 -->
+  <figure class="media" data-label="▶ FULL-BLEED FILM&#10;2520 × 1080 · 21:9 · MP4, muted loop"><video src="" poster="" autoplay muted loop playsinline></video></figure>
+  <div class="film-cap"><span class="eyebrow">Inside Nocturne</span><span>Six private suites, a reformer studio and a hydrotherapy room.</span></div>
+</section>
+
+<!-- METHOD · IMAGE left / three stages right -->
+<section id="method">
+  <div class="wrap method">
+    <figure class="media" data-label="PORTRAIT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure>
+    <div>
+      <div class="eyebrow">Method</div>
+      <h2>Three stages, one clinician</h2>
+      <div class="steps">
+        <div><span>Week 1</span><div><h3>Assess</h3><p>A 90-minute assessment of movement, history and goals.</p></div></div>
+        <div><span>Weeks 2–6</span><div><h3>Restore</h3><p>Hands-on treatment paired with precise exercise.</p></div></div>
+        <div><span>Ongoing</span><div><h3>Sustain</h3><p>A long-term plan to keep you strong and pain-free.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE · centred on deep band -->
+<section class="quote">
+  <div class="wrap">
+    <div class="eyebrow">Patient words</div>
+    <blockquote>"Discreet, exacting and genuinely kind. The finest care I have received anywhere."</blockquote>
+    <cite>Alexander W. · Lumbar disc</cite>
+  </div>
+</section>
+
+<!-- CLINICIANS · 4 tall PORTRAITS -->
+<section id="team">
+  <div class="wrap">
+    <div class="eyebrow">Clinicians</div>
+    <div class="team">
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 1200 · 2:3"><img src="" alt=""></figure><h3>Dr. Mara Lindqvist</h3><p>Founder · Spinal specialist</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 1200 · 2:3"><img src="" alt=""></figure><h3>Oliver Grant</h3><p>Orthopaedic rehabilitation</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 1200 · 2:3"><img src="" alt=""></figure><h3>Inès Laurent</h3><p>Reformer Pilates</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 1200 · 2:3"><img src="" alt=""></figure><h3>Samuel Okafor</h3><p>Sports physiotherapy</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING · split: dark panel with faint IMAGE / cream form panel -->
+<section id="book" class="book" style="padding:0">
+  <div class="l">
+    <!-- MEDIA ZONE · BACKGROUND TEXTURE IMAGE · 1600×1200 · 4:3 (shown at 35% opacity) -->
+    <figure class="media" data-label="BACKGROUND IMAGE&#10;1600 × 1200 · 4:3"><img src="" alt=""></figure>
+    <div class="txt">
+      <div class="eyebrow">Appointments</div>
+      <h2>Begin your recovery</h2>
+      <p style="color:var(--muted);max-width:380px">8 Holloway Court · +44 20 0000 0000<br>Mon–Fri 7:00–21:00 · Sat 8:00–15:00</p>
+    </div>
+  </div>
+  <div class="r">
+    <form onsubmit="return false">
+      <label>Full name<input id="n-name"></label>
+      <label>Email or telephone<input id="n-contact"></label>
+      <label>Treatment<select id="n-treat"><option>Initial assessment</option><option>Manual Therapy</option><option>Orthopaedic Rehabilitation</option><option>Spinal Care</option><option>Reformer Pilates</option></select></label>
+      <label>Preferred time<select id="n-time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
+      <button class="btn">Request appointment</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <div><div class="logo">Nocturne</div></div>
+      <div><span class="eyebrow">Visit</span>8 Holloway Court<br>London N7</div>
+      <div><span class="eyebrow">Contact</span>+44 20 0000 0000<br>care@nocturne.clinic</div>
+      <div><span class="eyebrow">Follow</span>Instagram<br>Journal</div>
+    </div>
+    <small><span>© 2026 Nocturne Physiotherapy</span><span>Privacy · Terms</span></small>
+  </div>
+</footer>
+
+<a class="back" href="../../index.html">← All designs</a>
+</body>
+</html>
