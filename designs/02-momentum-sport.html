@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design 2 · Momentum Sport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#C6F432; --secondary:#1F6FEB; --accent:#FF4D2E; --bg:#0E1116;
+    --panel:#171B22; --ink:#F2F4F7; --muted:#8B95A5; --line:#262C36;
+    --ph1:#1A1F27; --ph2:#20262F; --phText:#7E8A9A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Barlow,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  h1,h2,h3{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;line-height:1;letter-spacing:.01em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:16px 30px;font:700 15px Oswald,sans-serif;text-transform:uppercase;letter-spacing:.06em;
+    transform:skewX(-10deg);background:var(--primary);color:#0E1116}
+  .btn > span{display:inline-block;transform:skewX(10deg)}
+  .btn.outline{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff}
+  .tag{font:600 13px Barlow;letter-spacing:.2em;text-transform:uppercase;color:var(--primary)}
+  section{padding:110px 0}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,0);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:600 12px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* nav over hero */
+  header{position:absolute;top:0;left:0;right:0;z-index:10}
+  nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .logo{font:700 26px Oswald;text-transform:uppercase;letter-spacing:.04em}
+  .logo i{color:var(--primary);font-style:normal}
+  .links{display:flex;gap:34px;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.08em}
+
+  /* full-bleed video hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:0 0 90px}
+  .hero .media{position:absolute;inset:0;aspect-ratio:auto}
+  .hero .media::after{top:130px;left:auto;right:24px;transform:none;text-align:right}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,17,22,.2) 30%,rgba(14,17,22,.95));z-index:1;pointer-events:none}
+  .hero .wrap{position:relative;z-index:2;width:100%}
+  .hero h1{font-size:clamp(56px,10vw,150px);margin:18px 0 22px}
+  .hero h1 em{font-style:normal;color:var(--primary)}
+  .hero p{max-width:520px;font-size:19px;color:#C9D0DA;margin-bottom:34px}
+  .hero .ctas{display:flex;gap:18px;flex-wrap:wrap}
+
+  /* stats strip */
+  .stats{background:var(--primary);color:#0E1116;padding:34px 0;transform:skewY(-2deg);margin-top:-30px;position:relative;z-index:3}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;transform:skewY(2deg)}
+  .stats b{display:block;font:700 48px Oswald}
+  .stats span{font-weight:600;text-transform:uppercase;font-size:13px;letter-spacing:.1em}
+
+  /* bento services */
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(40px,6vw,72px);margin-top:10px}
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
+  .tile{position:relative;background:var(--panel);overflow:hidden;padding:26px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line)}
+  .tile .media{position:absolute;inset:0;aspect-ratio:auto}
+  .tile .txt{position:relative;z-index:2}
+  .tile.img::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 40%,rgba(14,17,22,.9))}
+  .tile.img .txt{z-index:3}
+  .tile h3{font-size:30px}
+  .tile p{color:var(--muted);font-size:15px;margin-top:6px}
+  .t-big{grid-column:span 2;grid-row:span 2}
+  .t-wide{grid-column:span 2}
+  .t-lime{background:var(--primary);color:#0E1116}
+  .t-lime p{color:#2B3410}
+  .t-blue{background:var(--secondary)}
+  .t-blue p{color:#D7E5FF}
+
+  /* angled performance lab */
+  .lab{background:var(--panel);clip-path:polygon(0 6%,100% 0,100% 94%,0 100%);padding:150px 0}
+  .lab .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  .lab .media{clip-path:polygon(0 0,100% 0,92% 100%,0 100%)}
+  .lab h2{font-size:56px;margin:12px 0 20px}
+  .bars{display:grid;gap:18px;margin-top:28px}
+  .bar{font-weight:600;text-transform:uppercase;font-size:13px;letter-spacing:.1em}
+  .bar div{height:6px;background:var(--line);margin-top:8px}
+  .bar div i{display:block;height:100%;background:var(--primary)}
+
+  /* vertical reels */
+  .reels{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:16px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+  .reel{scroll-snap-align:start;position:relative}
+  .reel .media{--ar:9/16}
+  .reel .cap{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
+  .reel .cap b{font:700 22px Oswald;text-transform:uppercase;display:block}
+  .reel .cap span{color:var(--primary);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+
+  /* programs */
+  .progs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .prog{border:1px solid var(--line);padding:38px;background:var(--panel)}
+  .prog.hot{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+  .prog h3{font-size:30px;margin-bottom:8px}
+  .prog .price{font:700 52px Oswald;color:var(--primary);margin:18px 0}
+  .prog .price small{font-size:16px;color:var(--muted)}
+  .prog ul{list-style:none;display:grid;gap:10px;margin-bottom:30px;color:#C9D0DA}
+  .prog li::before{content:"▸ ";color:var(--accent)}
+
+  /* booking band */
+  .book{background:var(--accent);padding:90px 0;clip-path:polygon(0 0,100% 12%,100% 100%,0 100%)}
+  .book .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center}
+  .book h2{font-size:clamp(44px,6vw,80px)}
+  .book form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .book input,.book select{padding:18px;border:none;background:#0E1116;color:#fff;font:inherit;font-size:16px}
+  .book .btn{grid-column:1/-1;background:#0E1116;color:var(--primary);border:none;cursor:pointer;text-align:center}
+
+  footer{padding:70px 0 30px;color:var(--muted);font-size:14px}
+  .frow{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .frow h4{color:#fff;font:600 14px Oswald;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+  .frow a{display:block;margin-bottom:6px}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--primary);color:#0E1116;font:600 12px Barlow,sans-serif;padding:8px 14px;border-radius:999px}
+
+  @media (max-width:900px){
+    .links{display:none}
+    .stats .wrap{grid-template-columns:1fr 1fr}
+    .bento{grid-template-columns:1fr 1fr;grid-auto-rows:220px}
+    .lab .wrap,.book .wrap,.progs{grid-template-columns:1fr}
+    .book form{grid-template-columns:1fr}
+    section{padding:72px 0}
+  }
+  @media (max-width:560px){ .bento{grid-template-columns:1fr} .t-big,.t-wide{grid-column:span 1} }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">Momentum<i>/</i>PT</div>
+    <div class="links"><a href="#services">Treatment</a><a href="#lab">Performance Lab</a><a href="#stories">Athletes</a><a href="#programs">Programs</a></div>
+    <a href="#book" class="btn"><span>Book now</span></a>
+  </nav>
+</header>
+
+<!-- HERO · full-bleed background VIDEO -->
+<section class="hero">
+  <!-- MEDIA ZONE · HERO BACKGROUND VIDEO · 1920×1080 · 16:9 · ≤15s loop, muted -->
+  <figure class="media" data-label="▶ FULL-BLEED HERO VIDEO&#10;1920 × 1080 · 16:9 · MP4 loop, muted, ≤ 15s&#10;athlete sprint / training footage">
+    <video src="" poster="" autoplay muted loop playsinline></video>
+  </figure>
+  <div class="wrap">
+    <div class="tag">Sports Rehab · Performance · Recovery</div>
+    <h1>Back in<br>the <em>game.</em><br>Faster.</h1>
+    <p>Sports physical therapy built by athletes, for athletes. Data-driven rehab that gets you stronger than before your injury.</p>
+    <div class="ctas"><a href="#book" class="btn"><span>Start your comeback</span></a><a href="#stories" class="btn outline"><span>Watch stories</span></a></div>
+  </div>
+</section>
+
+<div class="stats"><div class="wrap">
+  <div><b>12K+</b><span>Athletes treated</span></div>
+  <div><b>94%</b><span>Return to sport</span></div>
+  <div><b>48H</b><span>Injury-to-assessment</span></div>
+  <div><b>8</b><span>Pro teams partnered</span></div>
+</div></div>
+
+<!-- SERVICES · bento grid, mixed IMAGE + colour tiles -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="tag">What we fix</div><h2>Treatment built<br>for performance</h2></div><a href="#programs" class="btn outline"><span>All services</span></a></div>
+    <div class="bento">
+      <div class="tile img t-big"><figure class="media" data-label="FEATURE IMAGE&#10;1200 × 1200 · 1:1"><img src="" alt=""></figure><div class="txt"><h3>ACL &amp; Knee Rehab</h3><p>Criteria-based return-to-sport testing.</p></div></div>
+      <div class="tile t-lime"><div class="txt"><h3>Running Analysis</h3><p>3D gait capture &amp; retraining.</p></div></div>
+      <div class="tile t-blue"><div class="txt"><h3>Concussion</h3><p>Graded return protocols.</p></div></div>
+      <div class="tile img t-wide"><figure class="media" data-label="WIDE IMAGE&#10;1200 × 600 · 2:1"><img src="" alt=""></figure><div class="txt"><h3>Shoulder &amp; Throwing</h3><p>Overhead athlete specialists.</p></div></div>
+      <div class="tile t-wide"><div class="txt"><h3>Dry Needling</h3><p>Fast tissue release.</p></div></div>
+      <div class="tile img t-wide"><figure class="media" data-label="WIDE IMAGE&#10;1200 × 600 · 2:1"><img src="" alt=""></figure><div class="txt"><h3>Recovery Suite</h3><p>Compression, cold &amp; heat.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE LAB · angled split, IMAGE left -->
+<section id="lab" class="lab">
+  <div class="wrap">
+    <!-- MEDIA ZONE · LAB IMAGE · 1500×1000 · 3:2 -->
+    <figure class="media" style="--ar:3/2" data-label="LAB / GYM IMAGE&#10;1500 × 1000 · 3:2"><img src="" alt=""></figure>
+    <div>
+      <div class="tag">Performance Lab</div>
+      <h2>Measure.<br>Rebuild.<br>Outperform.</h2>
+      <p style="color:var(--muted)">Force plates, velocity tracking and motion capture show exactly when you're ready — no guesswork.</p>
+      <div class="bars">
+        <div class="bar">Strength symmetry<div><i style="width:92%"></i></div></div>
+        <div class="bar">Jump power<div><i style="width:84%"></i></div></div>
+        <div class="bar">Range of motion<div><i style="width:97%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATHLETE STORIES · horizontal scroll of vertical VIDEOS (reels) -->
+<section id="stories">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="tag">Athlete stories</div><h2>Comebacks</h2></div><p style="color:var(--muted);max-width:340px">Swipe to watch real patients return to the field, court and track.</p></div>
+    <div class="reels">
+      <div class="reel"><figure class="media" data-label="▶ VERTICAL VIDEO&#10;1080 × 1920 · 9:16"><video src="" poster="" muted loop playsinline controls></video></figure><div class="cap"><span>Soccer · ACL</span><b>Dani, 22</b></div></div>
+      <div class="reel"><figure class="media" data-label="▶ VERTICAL VIDEO&#10;1080 × 1920 · 9:16"><video src="" poster="" muted loop playsinline controls></video></figure><div class="cap"><span>Marathon · Hip</span><b>Chris, 41</b></div></div>
+      <div class="reel"><figure class="media" data-label="▶ VERTICAL VIDEO&#10;1080 × 1920 · 9:16"><video src="" poster="" muted loop playsinline controls></video></figure><div class="cap"><span>Basketball · Ankle</span><b>Jordan, 17</b></div></div>
+      <div class="reel"><figure class="media" data-label="▶ VERTICAL VIDEO&#10;1080 × 1920 · 9:16"><video src="" poster="" muted loop playsinline controls></video></figure><div class="cap"><span>Tennis · Shoulder</span><b>Priya, 29</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS · 3 pricing-style columns -->
+<section id="programs" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div><div class="tag">Programs</div><h2>Pick your path</h2></div></div>
+    <div class="progs">
+      <div class="prog"><h3>Injury Rehab</h3><p style="color:var(--muted)">1:1 sessions with a sports PT.</p><div class="price">$120<small>/session</small></div><ul><li>Full assessment</li><li>Hands-on treatment</li><li>App-based home program</li></ul><a href="#book" class="btn outline"><span>Book</span></a></div>
+      <div class="prog hot"><h3>Return to Sport</h3><p style="color:var(--muted)">12-week guided comeback.</p><div class="price">$890<small>/12 wks</small></div><ul><li>Lab testing at 3 stages</li><li>Strength &amp; conditioning</li><li>Clearance report</li></ul><a href="#book" class="btn"><span>Most popular</span></a></div>
+      <div class="prog"><h3>Team Partner</h3><p style="color:var(--muted)">On-site care for clubs &amp; schools.</p><div class="price">Custom</div><ul><li>Pre-season screening</li><li>Sideline coverage</li><li>Injury prevention</li></ul><a href="#book" class="btn outline"><span>Enquire</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING · angled accent band, inline form -->
+<section id="book" class="book">
+  <div class="wrap">
+    <h2>Don't sit<br>out another<br>season.</h2>
+    <form onsubmit="return false">
+      <input placeholder="Name"><input placeholder="Phone">
+      <input placeholder="Email"><select><option>Your sport</option><option>Running</option><option>Soccer</option><option>Basketball</option><option>Other</option></select>
+      <select style="grid-column:1/-1"><option>Injury type</option><option>Knee</option><option>Ankle</option><option>Shoulder</option><option>Back</option></select>
+      <button class="btn"><span>Book assessment →</span></button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <div><div class="logo">Momentum<i>/</i>PT</div><p style="margin-top:10px">88 Stadium Way · (555) 210-8899</p></div>
+      <div><h4>Treatment</h4><a>Knee</a><a>Shoulder</a><a>Running</a></div>
+      <div><h4>Clinic</h4><a>Performance Lab</a><a>Team</a><a>Partners</a></div>
+      <div><h4>Hours</h4><a>Mon–Fri 6am–9pm</a><a>Sat 7am–2pm</a></div>
+    </div>
+    © 2026 Momentum Sports Physical Therapy
+  </div>
+</footer>
+
+<a class="back" href="../index.html">← All designs</a>
+</body>
+</html>

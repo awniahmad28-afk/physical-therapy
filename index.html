@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PT Clinic Design Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#18202A;--muted:#5D6877;--line:#E2E6EC;--bg:#F5F6F8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+  header{padding:56px 0 32px}
+  h1{font-size:clamp(28px,4vw,40px)}
+  header p{color:var(--muted);max-width:720px;margin-top:8px}
+  h2{font-size:24px;margin:56px 0 18px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .thumb{position:relative;height:260px;overflow:hidden;border-bottom:1px solid var(--line);background:#eee}
+  .thumb iframe{width:1440px;height:1040px;border:0;transform:scale(.27);transform-origin:0 0;pointer-events:none}
+  .body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .num{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--muted)}
+  .card h3{font-size:20px}
+  .card p{font-size:14px;color:var(--muted)}
+  .sw{display:flex;gap:6px}
+  .sw i{width:28px;height:28px;border-radius:6px;border:1px solid rgba(0,0,0,.08)}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tags span{font-size:12px;background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:999px}
+  .open{margin-top:auto;display:inline-block;text-align:center;background:var(--ink);color:#fff;padding:12px;border-radius:10px;font-weight:600;text-decoration:none}
+  .tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:14px}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+  th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#FAFBFC;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  tr:last-child td{border-bottom:0}
+  .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+  pre{background:#18202A;color:#E7EDF5;padding:16px;border-radius:10px;overflow-x:auto;font-size:13px;margin:12px 0}
+  ol,ul{padding-left:22px}
+  li{margin-bottom:6px}
+  .recs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .recs div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .recs b{display:block;margin-bottom:6px}
+  footer{padding:48px 0;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Physical Therapy Clinic: 5 Website Design Concepts</h1>
+  <p>Each preview is a self-contained HTML page with striped placeholder zones for images (▣) and videos (▶). Each zone is labelled with its recommended size and aspect ratio. Click a card to open the full page.</p>
+</header>
+
+<div class="grid">
+  <div class="card"><div class="thumb"><iframe src="designs/01-serene-clinic.html" loading="lazy" tabindex="-1" title="Serene Clinic preview"></iframe></div>
+    <div class="body"><span class="num">DESIGN 01</span><h3>Serene Clinic</h3><p>Calm, clean and clinical. Soft teal and sage with a classic split hero and card grid.</p>
+    <div class="sw"><i style="background:#2A7F8E"></i><i style="background:#A8C3B4"></i><i style="background:#F28C6B"></i><i style="background:#F7FAF9"></i></div>
+    <div class="tags"><span>Split hero</span><span>Card grid</span><span>General outpatient</span></div>
+    <a class="open" href="designs/01-serene-clinic.html">Open preview →</a></div></div>
+
+  <div class="card"><div class="thumb"><iframe src="designs/02-momentum-sport.html" loading="lazy" tabindex="-1" title="Momentum Sport preview"></iframe></div>
+    <div class="body"><span class="num">DESIGN 02</span><h3>Momentum Sport</h3><p>Dark and energetic, with electric lime. Full-screen video hero, bento grid and vertical athlete reels.</p>
+    <div class="sw"><i style="background:#C6F432"></i><i style="background:#1F6FEB"></i><i style="background:#FF4D2E"></i><i style="background:#0E1116"></i></div>
+    <div class="tags"><span>Video hero</span><span>Bento grid</span><span>Sports rehab</span></div>
+    <a class="open" href="designs/02-momentum-sport.html">Open preview →</a></div></div>
+
+  <div class="card"><div class="thumb"><iframe src="designs/03-warm-hearth.html" loading="lazy" tabindex="-1" title="Warm Hearth preview"></iframe></div>
+    <div class="body"><span class="num">DESIGN 03</span><h3>Warm Hearth</h3><p>Warm, playful and family-friendly. Organic shapes, wavy dividers and a photo collage hero.</p>
+    <div class="sw"><i style="background:#C8664A"></i><i style="background:#7A9E7E"></i><i style="background:#E9B44C"></i><i style="background:#FFF8EF"></i></div>
+    <div class="tags"><span>Centered hero</span><span>Rounded cards</span><span>Pediatric / family</span></div>
+    <a class="open" href="designs/03-warm-hearth.html">Open preview →</a></div></div>
+
+  <div class="card"><div class="thumb"><iframe src="designs/04-atelier-editorial.html" loading="lazy" tabindex="-1" title="Atelier Editorial preview"></iframe></div>
+    <div class="body"><span class="num">DESIGN 04</span><h3>Atelier Editorial</h3><p>Minimal and premium, styled like a magazine. Oversized serif type, a 21:9 cinematic image and a zig-zag layout.</p>
+    <div class="sw"><i style="background:#141414"></i><i style="background:#E8E4DD"></i><i style="background:#6B7A3A"></i><i style="background:#FAFAF7"></i></div>
+    <div class="tags"><span>Editorial</span><span>Asymmetric</span><span>Boutique / private pay</span></div>
+    <a class="open" href="designs/04-atelier-editorial.html">Open preview →</a></div></div>
+
+  <div class="card"><div class="thumb"><iframe src="designs/05-clarity-care.html" loading="lazy" tabindex="-1" title="Clarity Care preview"></iframe></div>
+    <div class="body"><span class="num">DESIGN 05</span><h3>Clarity Care</h3><p>Accessible and high-contrast, with large text. Phone-first, with big tap targets and a text-size toggle.</p>
+    <div class="sw"><i style="background:#1B365D"></i><i style="background:#4A90D9"></i><i style="background:#F5A623"></i><i style="background:#FFFFFF"></i></div>
+    <div class="tags"><span>Accessible</span><span>Large tiles</span><span>Elderly care</span></div>
+    <a class="open" href="designs/05-clarity-care.html">Open preview →</a></div></div>
+</div>
+
+<h2>Comparison</h2>
+<div class="tbl"><table>
+  <tr><th>Design</th><th>Style</th><th>Layout type</th><th>Best suited audience</th><th>Media customisation</th></tr>
+  <tr><td><b>01 Serene Clinic</b></td><td>Calm, clinical, light</td><td>Split hero, 3-col cards, split sections</td><td>General outpatient, ortho, women's health</td><td>★★★★★ Very easy: standard image slots</td></tr>
+  <tr><td><b>02 Momentum Sport</b></td><td>Bold, dark, high-energy</td><td>Full-bleed video, bento grid, angled bands, reels</td><td>Sports rehab, athletes, performance</td><td>★★★☆☆ Video-heavy: needs good footage</td></tr>
+  <tr><td><b>03 Warm Hearth</b></td><td>Warm, playful, friendly</td><td>Centered hero + collage, rounded cards, waves</td><td>Pediatric, family practice, women's health</td><td>★★★★☆ Easy: shaped crops hide imperfect photos</td></tr>
+  <tr><td><b>04 Atelier Editorial</b></td><td>Minimal, luxury, editorial</td><td>Oversized type, numbered list, zig-zag, split booking</td><td>Boutique, private-pay, manual therapy, Pilates</td><td>★★★☆☆ Needs high-quality, consistent photography</td></tr>
+  <tr><td><b>05 Clarity Care</b></td><td>Accessible, trustworthy</td><td>Utility bar, 50/50 hero, 3×2 tiles, steps</td><td>Elderly care, neuro rehab, Medicare clinics, home health</td><td>★★★★★ Very easy: few, simple slots</td></tr>
+</table></div>
+
+<h2>How to add your own photos and videos</h2>
+<div class="box">
+  <p>Every placeholder looks like this. The striped box and label disappear as soon as you add a file path to <code>src</code>:</p>
+<pre>&lt;figure class="media" style="--ar:4/5" data-label="HERO IMAGE 1200 × 1500 · 4:5"&gt;
+  &lt;img src="" alt="Describe the photo"&gt;
+&lt;/figure&gt;</pre>
+  <ol>
+    <li>Put your files in the <code>media/</code> folder, for example <code>media/hero.jpg</code> or <code>media/tour.mp4</code>.</li>
+    <li>Open the design's HTML file and search for <code>MEDIA ZONE</code> or <code>src=""</code>.</li>
+    <li><b>Image:</b> set <code>src="../media/hero.jpg"</code> and write a short <code>alt</code> description.</li>
+    <li><b>Video:</b> set <code>src="../media/tour.mp4"</code> and <code>poster="../media/tour-poster.jpg"</code>. Background videos should stay <code>muted autoplay loop playsinline</code>.</li>
+    <li>Swap an image for a video, or the other way round, by replacing the <code>&lt;img&gt;</code> tag inside the <code>&lt;figure&gt;</code> with a <code>&lt;video&gt;</code> tag. The frame keeps its shape.</li>
+    <li>To change a frame's shape, edit <code>--ar</code> (for example <code>--ar:1/1</code>). Photos are cropped to fit automatically (<code>object-fit:cover</code>).</li>
+  </ol>
+<pre>&lt;!-- after --&gt;
+&lt;figure class="media" style="--ar:16/9" data-label="CLINIC TOUR VIDEO"&gt;
+  &lt;video src="../media/tour.mp4" poster="../media/tour.jpg" controls playsinline&gt;&lt;/video&gt;
+&lt;/figure&gt;</pre>
+  <p><b>Tips:</b> export JPG/WebP images at the listed size, under about 300 KB each. Keep MP4 (H.264) videos under 10 MB, and keep hero loops under 15 seconds. <b>CMS-ready:</b> each <code>&lt;figure class="media"&gt;</code> is a self-contained slot. In WordPress, Webflow or Squarespace, map each one to an image or video field that has the same aspect ratio.</p>
+</div>
+
+<h2>Which design fits your clinic?</h2>
+<div class="recs">
+  <div><b>🏃 Sports rehab</b>Design 02 Momentum Sport. The video hero, stats and athlete reels sell results. Alternative: 01 with a sportier photo set.</div>
+  <div><b>🧓 Elderly care / Medicare</b>Design 05 Clarity Care. It has large text, a phone-first layout, step-free access info and a text-size toggle.</div>
+  <div><b>🧸 Pediatric / family</b>Design 03 Warm Hearth. Its soft shapes, warm palette and parent-focused FAQ feel welcoming and safe.</div>
+  <div><b>🏥 General outpatient</b>Design 01 Serene Clinic. It's neutral, trustworthy and scales to many services and locations.</div>
+  <div><b>✨ Boutique / private pay</b>Design 04 Atelier Editorial. It's premium and calm, and it shows off high-end photography.</div>
+</div>
+
+<footer>Previews use placeholder content. Fonts load from Google Fonts. No build step is needed: open any file in a browser.</footer>
+</div>
+</body>
+</html>

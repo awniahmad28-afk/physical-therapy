@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design 1 · Serene Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#2A7F8E; --secondary:#A8C3B4; --accent:#F28C6B; --bg:#F7FAF9;
+    --ink:#1D2B2F; --muted:#5B6B70; --line:#DDE7E4; --white:#fff;
+    --ph1:#E3EEEB; --ph2:#D6E6E1; --phText:#3E6A70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;line-height:1.15}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:14px 26px;border-radius:999px;font-weight:600;font-size:15px}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-ghost{border:1.5px solid var(--primary);color:var(--primary)}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:600}
+  section{padding:96px 0}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,20px);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:600 12px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:10;background:rgba(247,250,249,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:"DM Serif Display",serif;font-size:24px;color:var(--primary)}
+  .logo span{color:var(--accent)}
+  .links{display:flex;gap:32px;font-size:15px;color:var(--muted)}
+
+  /* hero split */
+  .hero{padding:72px 0 96px}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  .hero h1{font-size:clamp(40px,5vw,62px);margin:16px 0 20px}
+  .hero p.lead{font-size:18px;color:var(--muted);max-width:520px}
+  .hero .ctas{display:flex;gap:12px;margin:32px 0}
+  .trust{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+  .trust b{display:block;font-size:22px;color:var(--ink);font-family:"DM Serif Display",serif;font-weight:400}
+  .hero-media{position:relative}
+  .float-card{position:absolute;left:-32px;bottom:32px;z-index:2;background:#fff;border-radius:16px;padding:16px 20px;
+    box-shadow:0 20px 40px rgba(29,43,47,.12);font-size:14px}
+  .float-card b{color:var(--primary)}
+
+  /* insurance strip */
+  .strip{padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .strip .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;color:#9AAAA9;font-weight:600;flex-wrap:wrap}
+
+  /* services cards */
+  .head{text-align:center;max-width:640px;margin:0 auto 56px}
+  .head h2{font-size:42px;margin-top:12px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{background:#fff;border-radius:22px;padding:14px;border:1px solid var(--line)}
+  .card .media{--ar:4/3;--r:14px}
+  .card h3{font-size:22px;margin:18px 8px 6px}
+  .card p{font-size:15px;color:var(--muted);margin:0 8px 10px}
+
+  /* about split */
+  .about{background:#fff}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .about h2{font-size:40px;margin:12px 0 18px}
+  .checks{list-style:none;margin-top:22px;display:grid;gap:12px}
+  .checks li::before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
+    background:var(--secondary);color:var(--primary);font-size:13px;margin-right:12px;font-weight:700}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+  .step{padding:28px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:"DM Serif Display",serif;font-size:34px;color:var(--accent)}
+  .step h3{font-size:20px;margin:10px 0 6px}
+  .step p{font-size:14px;color:var(--muted)}
+
+  /* testimonials */
+  .tests{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .test{background:#fff;padding:32px;border-radius:22px;border:1px solid var(--line)}
+  .test p{font-size:16px}
+  .who{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:14px}
+  .who .media{--ar:1/1;--r:50%;width:52px}
+  .who .media::after{font-size:8px}
+  .stars{color:var(--accent);letter-spacing:2px;margin-bottom:10px}
+
+  /* booking */
+  .booking{background:var(--primary);color:#fff;border-radius:32px;margin:0 24px;padding:72px 0}
+  .booking .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:56px}
+  .booking h2{font-size:42px}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+  input,select,textarea{width:100%;padding:14px 16px;border-radius:12px;border:none;font:inherit;font-size:15px}
+  textarea{grid-column:1/-1;min-height:96px}
+  form .btn{grid-column:1/-1;background:var(--accent);color:#fff;border:none;font-size:16px;cursor:pointer}
+  .info{background:rgba(255,255,255,.1);border-radius:22px;padding:28px}
+  .info h3{font-size:22px;margin-bottom:12px}
+  .info .media{--ar:4/3;--r:14px;margin-top:18px;--ph1:#3A8F9E;--ph2:#33889A;--phText:#DFF1F1}
+  .hours{font-size:14px;display:grid;gap:6px}
+  .hours div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:6px}
+
+  footer{padding:72px 0 32px;font-size:14px;color:var(--muted)}
+  .fcols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:48px}
+  .fcols h4{color:var(--ink);margin-bottom:12px;font-size:14px}
+  .fcols a{display:block;margin-bottom:6px}
+  .copy{border-top:1px solid var(--line);padding-top:24px}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:#1D2B2F;color:#fff;font:600 12px Inter,sans-serif;padding:8px 14px;border-radius:999px}
+
+  @media (max-width:860px){
+    .links{display:none}
+    .hero .wrap,.about .wrap,.booking .wrap{grid-template-columns:1fr}
+    .cards,.tests,.steps{grid-template-columns:1fr}
+    .float-card{left:12px}
+    .fcols{grid-template-columns:1fr 1fr}
+    section{padding:64px 0}
+    form{grid-template-columns:1fr}
+    .booking{margin:0 12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">Serene<span>.</span>PT</div>
+    <div class="links"><a href="#services">Services</a><a href="#about">About</a><a href="#process">Your Visit</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div>
+    <a href="#book" class="btn btn-primary">Book a visit</a>
+  </nav>
+</header>
+
+<!-- HERO · split screen: text left / IMAGE right -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Physical Therapy &amp; Rehabilitation</div>
+      <h1>Gentle, evidence-based care to help you move freely again.</h1>
+      <p class="lead">One-on-one sessions with licensed physical therapists. Personalised plans for pain relief, injury recovery and post-surgical rehab.</p>
+      <div class="ctas"><a href="#book" class="btn btn-primary">Book an evaluation</a><a href="#services" class="btn btn-ghost">Explore services</a></div>
+      <div class="trust"><div><b>4.9★</b>600+ reviews</div><div><b>15 yrs</b>in practice</div><div><b>40+</b>insurers accepted</div></div>
+    </div>
+    <div class="hero-media">
+      <!-- MEDIA ZONE · HERO IMAGE · 1200×1500 · 4:5 -->
+      <figure class="media" style="--ar:4/5" data-label="HERO IMAGE&#10;1200 × 1500 · 4:5&#10;therapist with patient">
+        <img src="" alt="Physical therapist guiding a patient through a knee exercise">
+      </figure>
+      <div class="float-card">Next available: <b>Tomorrow · 9:00 AM</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="wrap"><span>ACCEPTED INSURANCE</span><span>Aetna</span><span>BlueCross</span><span>Cigna</span><span>Medicare</span><span>UnitedHealthcare</span></div></div>
+
+<!-- SERVICES · 3-column card grid, each card has an IMAGE -->
+<section id="services">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">What we treat</div><h2>Care plans built around you</h2></div>
+    <div class="cards">
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Orthopedic Rehab</h3><p>Joint, muscle and post-surgical recovery for knees, hips, shoulders and spine.</p></article>
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Back &amp; Neck Pain</h3><p>Manual therapy and targeted exercise to relieve chronic and acute pain.</p></article>
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Sports Injuries</h3><p>Return-to-activity programmes for sprains, strains and overuse injuries.</p></article>
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Balance &amp; Vestibular</h3><p>Reduce dizziness and fall risk with specialised balance retraining.</p></article>
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Dry Needling</h3><p>Release trigger points and muscle tension as part of your plan.</p></article>
+      <article class="card"><figure class="media" data-label="SERVICE IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><h3>Women's Health</h3><p>Pelvic floor therapy and pre/post-natal care in a private setting.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT · split: VIDEO left / text right -->
+<section id="about" class="about">
+  <div class="wrap">
+    <!-- MEDIA ZONE · CLINIC TOUR VIDEO · 1920×1080 · 16:9 -->
+    <figure class="media" style="--ar:16/9" data-label="▶ CLINIC TOUR VIDEO&#10;1920 × 1080 · 16:9 · MP4&#10;(poster image same size)">
+      <video src="" poster="" controls playsinline></video>
+    </figure>
+    <div>
+      <div class="eyebrow">About the clinic</div>
+      <h2>A calm space designed for recovery</h2>
+      <p style="color:var(--muted)">Our bright, quiet treatment rooms and modern gym give every patient the space and attention they need. Every visit is a full hour with your therapist — never handed off.</p>
+      <ul class="checks"><li>Doctor of Physical Therapy clinicians</li><li>Same-week appointments</li><li>Home exercise app included</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS · 4-step horizontal row -->
+<section id="process">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Your first visit</div><h2>Four simple steps</h2></div>
+    <div class="steps">
+      <div class="step"><h3>Book</h3><p>Online or by phone — no referral needed in most states.</p></div>
+      <div class="step"><h3>Assess</h3><p>A 60-minute evaluation of movement, strength and goals.</p></div>
+      <div class="step"><h3>Treat</h3><p>Hands-on therapy plus a tailored exercise programme.</p></div>
+      <div class="step"><h3>Thrive</h3><p>Track progress and stay strong after discharge.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS · 3 cards, AVATAR images -->
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Patient stories</div><h2>Trusted by our community</h2></div>
+    <div class="tests">
+      <div class="test"><div class="stars">★★★★★</div><p>"After my knee replacement I was nervous. The team made every session feel achievable."</p><div class="who"><figure class="media" data-label="200²"><img src="" alt=""></figure><div><b>Maria L.</b><br>Knee replacement</div></div></div>
+      <div class="test"><div class="stars">★★★★★</div><p>"My back pain of five years is finally manageable. Clear explanations, real results."</p><div class="who"><figure class="media" data-label="200²"><img src="" alt=""></figure><div><b>James T.</b><br>Chronic back pain</div></div></div>
+      <div class="test"><div class="stars">★★★★★</div><p>"Calm, clean and incredibly professional. I actually looked forward to my appointments."</p><div class="who"><figure class="media" data-label="200²"><img src="" alt=""></figure><div><b>Aisha R.</b><br>Shoulder rehab</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING + CONTACT · split band: form left / hours + MAP IMAGE right -->
+<section id="book" class="booking">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--secondary)">Book an appointment</div>
+      <h2>Start feeling better this week</h2>
+      <form onsubmit="return false">
+        <input placeholder="Full name"><input placeholder="Phone">
+        <input placeholder="Email"><select><option>Reason for visit</option><option>Injury</option><option>Post-surgery</option><option>Chronic pain</option></select>
+        <textarea placeholder="Tell us a little about your condition (optional)"></textarea>
+        <button class="btn">Request appointment</button>
+      </form>
+    </div>
+    <div class="info" id="contact">
+      <h3>Visit us</h3>
+      <p style="font-size:14px;margin-bottom:16px">120 Willow Street, Suite 4<br>(555) 012-3456 · hello@serenept.com</p>
+      <div class="hours"><div><span>Mon–Thu</span><span>7am – 7pm</span></div><div><span>Friday</span><span>7am – 5pm</span></div><div><span>Saturday</span><span>8am – 12pm</span></div></div>
+      <!-- MEDIA ZONE · MAP / EXTERIOR IMAGE · 800×600 · 4:3 -->
+      <figure class="media" data-label="MAP or BUILDING IMAGE&#10;800 × 600 · 4:3"><img src="" alt="Clinic location"></figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><div class="logo">Serene<span>.</span>PT</div><p style="margin-top:12px;max-width:280px">Compassionate physical therapy for every stage of recovery.</p></div>
+      <div><h4>Services</h4><a>Orthopedic</a><a>Sports</a><a>Vestibular</a></div>
+      <div><h4>Clinic</h4><a>About</a><a>Team</a><a>Careers</a></div>
+      <div><h4>Patients</h4><a>Forms</a><a>Insurance</a><a>FAQ</a></div>
+    </div>
+    <div class="copy">© 2026 Serene Physical Therapy. All rights reserved.</div>
+  </div>
+</footer>
+
+<a class="back" href="../index.html">← All designs</a>
+</body>
+</html>

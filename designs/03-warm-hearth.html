@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design 3 · Warm Hearth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#C8664A; --secondary:#7A9E7E; --accent:#E9B44C; --bg:#FFF8EF;
+    --ink:#3B2A24; --muted:#7A6A62; --peach:#FBE3D5; --mint:#E3EEDF; --butter:#FCEFCF; --sky:#DDEBF2;
+    --ph1:#F6E6D8; --ph2:#F1DCCB; --phText:#A2705A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.12;font-weight:700}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;padding:15px 28px;border-radius:999px;font-weight:700;background:var(--primary);color:#fff;box-shadow:0 6px 0 #A44F37}
+  .btn.soft{background:#fff;color:var(--primary);box-shadow:0 6px 0 #EBD5C6}
+  .pill{display:inline-block;background:var(--butter);color:#8A6418;font-weight:700;font-size:14px;padding:6px 16px;border-radius:999px}
+  section{padding:96px 0}
+  .center{text-align:center}
+  .h2{font-size:clamp(34px,4.5vw,48px);margin:14px 0 16px}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,28px);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:700 12px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.05em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* nav pill */
+  header{padding:20px 0}
+  nav{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:999px;padding:10px 10px 10px 28px;box-shadow:0 10px 30px rgba(200,102,74,.10)}
+  .logo{font:700 22px Fraunces,serif;color:var(--primary);display:flex;align-items:center;gap:8px}
+  .logo::before{content:"";width:26px;height:26px;border-radius:50% 50% 50% 8px;background:var(--accent)}
+  .links{display:flex;gap:28px;font-weight:600;color:var(--muted)}
+
+  /* centered hero + collage */
+  .hero{padding:64px 0 40px;text-align:center}
+  .hero h1{font-size:clamp(40px,6vw,72px);max-width:860px;margin:18px auto}
+  .hero h1 span{color:var(--primary)}
+  .hero p{font-size:19px;color:var(--muted);max-width:620px;margin:0 auto 32px}
+  .hero .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .collage{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:24px;align-items:end;margin-top:64px}
+  .collage .media:nth-child(1){--ar:1/1;--r:50% 50% 32px 50%}
+  .collage .media:nth-child(2){--ar:4/5;--r:200px 200px 32px 32px}
+  .collage .media:nth-child(3){--ar:1/1;--r:50% 50% 50% 32px}
+
+  .wave{display:block;width:100%;height:80px}
+
+  /* who we help */
+  .help{background:#fff}
+  .who{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
+  .who div{border-radius:32px;padding:34px 22px;text-align:center}
+  .who .ic{width:72px;height:72px;border-radius:50%;background:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:32px}
+  .who h3{font-size:22px}
+  .who p{font-size:15px;color:var(--muted)}
+
+  /* services alternating */
+  .svc{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+  .svc article{background:#fff;border-radius:32px;padding:16px;display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:center}
+  .svc .media{--ar:4/3;--r:22px}
+  .svc h3{font-size:22px;margin-bottom:6px}
+  .svc p{font-size:15px;color:var(--muted)}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:48px;text-align:center}
+  .team .media{--ar:1/1;--r:50%;border:8px solid #fff;box-shadow:0 10px 30px rgba(59,42,36,.08)}
+  .team h3{font-size:20px;margin-top:16px}
+  .team p{font-size:14px;color:var(--muted)}
+
+  /* video */
+  .vid{background:var(--mint)}
+  .vid-box{position:relative;max-width:920px;margin:40px auto 0}
+  .vid-box .media{--ar:16/9;--r:36px;border:10px solid #fff}
+  .vid-box .media::after{top:76%}
+  .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:92px;height:92px;border-radius:50%;background:var(--primary);color:#fff;
+    display:grid;place-items:center;font-size:30px;z-index:2;box-shadow:0 0 0 14px rgba(200,102,74,.25);pointer-events:none}
+  .vid-box.has-video .play{display:none}
+
+  /* testimonial */
+  .quote{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+  .quote .media{--ar:1/1;--r:50% 50% 50% 40px}
+  blockquote{font:600 clamp(22px,3vw,30px)/1.4 Fraunces,serif}
+  blockquote::before{content:"“";display:block;font-size:90px;line-height:.6;color:var(--accent)}
+  cite{display:block;margin-top:20px;font-style:normal;font-weight:700;color:var(--primary)}
+
+  /* faq */
+  .faq{max-width:760px;margin:40px auto 0;display:grid;gap:14px}
+  details{background:#fff;border-radius:22px;padding:22px 26px}
+  summary{font-weight:700;font-size:18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+  summary::after{content:"+";color:var(--primary);font-size:24px;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--muted)}
+
+  /* booking */
+  .book{background:var(--peach);border-radius:48px;padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .book form{display:grid;gap:14px}
+  .book input,.book select{padding:16px 20px;border-radius:18px;border:2px solid #F3CDB8;background:#fff;font:inherit}
+  .book button{border:none;cursor:pointer;font:inherit;font-weight:700}
+
+  footer{background:var(--ink);color:#E9DCD5;padding:20px 0 40px;margin-top:96px}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;padding:40px 0;font-size:15px}
+  .fgrid h4{color:#fff;margin-bottom:10px}
+  .fgrid a{display:block;margin-bottom:6px}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--primary);color:#fff;font:700 12px Nunito,sans-serif;padding:8px 14px;border-radius:999px}
+
+  @media (max-width:880px){
+    .links{display:none}
+    .who,.team{grid-template-columns:1fr 1fr}
+    .svc,.quote,.book{grid-template-columns:1fr}
+    .svc article{grid-template-columns:1fr}
+    .collage{gap:12px}
+    .book{padding:36px 22px;border-radius:32px}
+    .fgrid{grid-template-columns:1fr}
+    section{padding:64px 0}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <nav><div class="logo">Hearth Therapy</div>
+    <div class="links"><a href="#help">Who we help</a><a href="#services">Services</a><a href="#team">Our team</a><a href="#faq">FAQ</a></div>
+    <a href="#book" class="btn" style="box-shadow:none">Book a visit</a></nav>
+</div></header>
+
+<!-- HERO · centered text + 3-image organic COLLAGE -->
+<section class="hero">
+  <div class="wrap">
+    <span class="pill">🌿 Physical therapy for the whole family</span>
+    <h1>Helping every body <span>grow, heal</span> and play.</h1>
+    <p>From first steps to golden years, our friendly therapists make recovery feel welcoming, fun and personal.</p>
+    <div class="ctas"><a href="#book" class="btn">Book your first visit</a><a href="#help" class="btn soft">How we help</a></div>
+    <div class="collage">
+      <!-- MEDIA ZONE · COLLAGE IMAGES · 800×800 (1:1), 960×1200 (4:5), 800×800 (1:1) -->
+      <figure class="media" data-label="IMAGE&#10;800 × 800 · 1:1&#10;child therapy"><img src="" alt=""></figure>
+      <figure class="media" data-label="IMAGE&#10;960 × 1200 · 4:5&#10;family / clinic"><img src="" alt=""></figure>
+      <figure class="media" data-label="IMAGE&#10;800 × 800 · 1:1&#10;senior patient"><img src="" alt=""></figure>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 40 C 240 90 480 0 720 40 S 1200 80 1440 30 V80 H0Z" fill="#fff"/></svg>
+
+<!-- WHO WE HELP · 4 pastel icon tiles -->
+<section id="help" class="help" style="padding-top:40px">
+  <div class="wrap center">
+    <span class="pill">Who we help</span>
+    <h2 class="h2">Care for every stage of life</h2>
+    <div class="who">
+      <div style="background:var(--sky)"><div class="ic">🧸</div><h3>Kids</h3><p>Developmental delays, sports and play-based therapy.</p></div>
+      <div style="background:var(--peach)"><div class="ic">🤰</div><h3>Parents</h3><p>Pregnancy and postpartum recovery.</p></div>
+      <div style="background:var(--mint)"><div class="ic">🚴</div><h3>Adults</h3><p>Injuries, aches and post-surgery rehab.</p></div>
+      <div style="background:var(--butter)"><div class="ic">🌻</div><h3>Seniors</h3><p>Balance, strength and confident movement.</p></div>
+    </div>
+  </div>
+</section>
+
+<svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" style="transform:scaleY(-1)"><path d="M0 40 C 240 90 480 0 720 40 S 1200 80 1440 30 V80 H0Z" fill="#fff"/></svg>
+
+<!-- SERVICES · 2-col rounded cards with side IMAGE -->
+<section id="services" style="padding-top:40px">
+  <div class="wrap">
+    <div class="center"><span class="pill">Services</span><h2 class="h2">Gentle, playful, effective</h2></div>
+    <div class="svc">
+      <article><figure class="media" data-label="IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><div><h3>Pediatric PT</h3><p>Motor skills, coordination and strength through games.</p></div></article>
+      <article><figure class="media" data-label="IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><div><h3>Post-Surgery Rehab</h3><p>Step-by-step plans after joint or spine surgery.</p></div></article>
+      <article><figure class="media" data-label="IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><div><h3>Pelvic Health</h3><p>Private, compassionate care for mums and women.</p></div></article>
+      <article><figure class="media" data-label="IMAGE&#10;800 × 600 · 4:3"><img src="" alt=""></figure><div><h3>Aquatic Therapy</h3><p>Low-impact sessions in our warm therapy pool.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM · circular PORTRAITS -->
+<section id="team" style="padding-top:0">
+  <div class="wrap center">
+    <span class="pill">Our team</span>
+    <h2 class="h2">Friendly faces you'll know by name</h2>
+    <div class="team">
+      <div><figure class="media" data-label="PORTRAIT&#10;600 × 600 · 1:1"><img src="" alt=""></figure><h3>Dr. Emma Hart</h3><p>Pediatric Specialist</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;600 × 600 · 1:1"><img src="" alt=""></figure><h3>Dr. Leo Martins</h3><p>Orthopedic PT</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;600 × 600 · 1:1"><img src="" alt=""></figure><h3>Dr. Nia Owens</h3><p>Pelvic Health</p></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;600 × 600 · 1:1"><img src="" alt=""></figure><h3>Sam Patel</h3><p>PT Assistant</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO · centered framed VIDEO with play badge -->
+<section class="vid">
+  <div class="wrap center">
+    <span class="pill" style="background:#fff">Take a peek inside</span>
+    <h2 class="h2">A day at Hearth Therapy</h2>
+    <div class="vid-box">
+      <!-- MEDIA ZONE · WELCOME VIDEO · 1920×1080 · 16:9 (add class "has-video" to .vid-box to hide the play badge) -->
+      <figure class="media" data-label="▶ WELCOME VIDEO&#10;1920 × 1080 · 16:9 · MP4"><video src="" poster="" controls playsinline></video></figure>
+      <div class="play">▶</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL · IMAGE left / big quote right -->
+<section>
+  <div class="wrap quote">
+    <figure class="media" data-label="FAMILY PHOTO&#10;900 × 900 · 1:1"><img src="" alt=""></figure>
+    <div><blockquote>Our son used to dread therapy. Now he asks every morning if it's a Hearth day. We've seen him gain so much confidence.</blockquote><cite>— The Robinson family</cite></div>
+  </div>
+</section>
+
+<!-- FAQ · accordion -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="center"><span class="pill">FAQ</span><h2 class="h2">Questions parents ask</h2></div>
+    <div class="faq">
+      <details open><summary>Do I need a doctor's referral?</summary><p>In most cases, no. We'll check your insurance requirements for you.</p></details>
+      <details><summary>Can siblings come along?</summary><p>Absolutely — our waiting room has a kids' play corner.</p></details>
+      <details><summary>How long is each session?</summary><p>45–60 minutes, depending on age and treatment plan.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING · soft peach card, text + form -->
+<section id="book" style="padding-top:0">
+  <div class="wrap">
+    <div class="book">
+      <div><span class="pill" style="background:#fff">Book a visit</span><h2 class="h2">We'd love to meet you</h2><p style="color:var(--muted)">Tell us a little about who needs care and we'll call you back within one business day.</p>
+        <p style="margin-top:20px;font-weight:700">📍 42 Maple Lane · 📞 (555) 333-7788</p></div>
+      <form onsubmit="return false">
+        <input placeholder="Parent / patient name"><input placeholder="Phone number">
+        <select><option>Who is the appointment for?</option><option>Child</option><option>Adult</option><option>Senior</option></select>
+        <button class="btn">Request a call back</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" style="margin-top:-100px"><path d="M0 40 C 240 90 480 0 720 40 S 1200 80 1440 30 V80 H0Z" fill="#3B2A24"/></svg>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><div class="logo">Hearth Therapy</div><p style="margin-top:10px">Warm, family-centred physical therapy.</p></div>
+      <div><h4>Visit</h4><a>42 Maple Lane</a><a>Mon–Sat 8am–6pm</a></div>
+      <div><h4>Contact</h4><a>(555) 333-7788</a><a>hello@hearthpt.com</a></div>
+    </div>
+    <p style="font-size:14px;opacity:.7">© 2026 Hearth Therapy</p>
+  </div>
+</footer>
+
+<a class="back" href="../index.html">← All designs</a>
+</body>
+</html>
