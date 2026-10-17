@@ -1,6 +1,6 @@
 # MOVEWELL Physiotherapy website
 
-A static five-page website in the Maison style, built from the MOVEWELL clinic's own logo, colours and photos. Open `index.html` in a browser. No build step is needed; upload the whole `site/` folder to any web host.
+A static five-page website in the Maison style, built from the MOVEWELL clinic's own logo, colours and photos. Open `index.html` in a browser. No build step is needed; upload the whole `docs/` folder to any web host.
 
 | Page | File |
 |---|---|
