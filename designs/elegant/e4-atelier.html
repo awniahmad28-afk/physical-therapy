@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegant 4 · Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Atelier: magazine-like editorial. Scroll motion: the cinematic hero image opens to full width, treatments travel
+     sideways in a pinned gallery, the patient quote lights up word by word, and the wordmark rises at the end. */
+  :root{
+    --ink:#141414; --stone:#E8E4DD; --olive:#6B7A3A; --paper:#FAFAF7; --muted:#6E6A63; --line:#D9D4CB;
+    --ph1:#ECE8E1; --ph2:#E4DFD6; --phText:#8A8478;
+    --display:"Cormorant Garamond",Georgia,serif; --body:Manrope,"Helvetica Neue",Arial,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.65;font-size:16px;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+  .label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .link{border-bottom:1px solid currentColor;padding-bottom:3px;font-weight:600;font-size:14px;letter-spacing:.04em}
+  section{padding:120px 0}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;border-radius:var(--r,0);
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:500 12px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* ---------- SCROLL MOTION ---------- */
+  .js [data-reveal]{opacity:0;transform:translateY(40px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease);transition-delay:var(--d,0s)}
+  .js [data-reveal].in{opacity:1;transform:none}
+  .js [data-slide]{clip-path:inset(0 100% 0 0);transition:clip-path 1.6s cubic-bezier(.7,0,.2,1);transition-delay:var(--d,0s)}
+  .js [data-slide].in{clip-path:inset(0 0 0 0)}
+  .rise .ch{display:inline-block}
+  .js .rise .ch{transform:translateY(105%);opacity:0;transition:transform 1.2s var(--ease),opacity 1.2s var(--ease);transition-delay:calc(var(--i) * .05s)}
+  .js .rise.in .ch{transform:none;opacity:1}
+  .rise .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+  .words .wd{transition:opacity .25s linear}
+  .js .words .wd{opacity:.14}
+  .js .words .wd.lit{opacity:1}
+  .mono img{filter:grayscale(1);transition:filter 1.6s var(--ease)}
+  .mono.in img{filter:grayscale(.15)}
+  .counter{position:fixed;right:24px;bottom:20px;z-index:40;font:500 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);background:rgba(250,250,247,.85);padding:8px 12px;backdrop-filter:blur(6px)}
+  .counter b{color:var(--ink);font-weight:600}
+
+  /* nav */
+  nav{display:flex;justify-content:space-between;align-items:center;height:88px;font-size:14px}
+  .logo{font:600 26px var(--display);letter-spacing:.02em}
+  .menu{display:flex;gap:36px}
+
+  /* hero */
+  .hero{padding:48px 0 0}
+  .hero h1{font-size:clamp(64px,13vw,200px);letter-spacing:-.02em;will-change:transform}
+  .hero h1 i{color:var(--olive)}
+  .hero-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin:36px 0 48px}
+  .hero-row p{max-width:420px;font-size:17px;color:var(--muted)}
+  .hero-row .r{justify-self:end;display:flex;gap:32px}
+  .expand{--x:0px;clip-path:inset(0 var(--x));overflow:hidden;will-change:clip-path}
+  .expand .media{--ar:21/9}
+  .expand .media > img,.expand .media::after{will-change:transform}
+
+  /* approach */
+  .intro{display:grid;grid-template-columns:1fr 2fr;gap:32px;border-top:1px solid var(--line);padding-top:40px}
+  .intro p.big{font:500 clamp(28px,3.4vw,46px)/1.2 var(--display)}
+
+  /* treatments: pinned horizontal gallery */
+  .hscroll{position:relative;padding:0}
+  .hscroll .pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .hscroll .top{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;width:100%}
+  .hscroll .top h2{font-size:clamp(44px,5vw,76px)}
+  .track{display:flex;gap:40px;padding:0 32px 0 max(32px,calc((100vw - 1320px) / 2 + 32px));will-change:transform}
+  .slide{flex:0 0 min(420px,78vw);display:grid;gap:18px}
+  .slide .media{--ar:4/5}
+  .slide .n{font:500 18px var(--display);color:var(--muted)}
+  .slide h3{font-size:40px}
+  .slide p{color:var(--muted);font-size:15px;max-width:360px}
+  .slide.end{flex-basis:min(360px,70vw);align-content:center}
+  .slide.end h3{font-style:italic}
+  .bar{height:1px;background:var(--line);margin:44px 32px 0;position:relative}
+  .bar i{position:absolute;left:0;top:0;height:1px;width:100%;background:var(--ink);transform-origin:0 50%;transform:scaleX(0)}
+
+  /* zig-zag */
+  .zig{display:grid;grid-template-columns:5fr 1fr 5fr;align-items:center;margin-bottom:140px}
+  .zig .media{--ar:4/5}
+  .zig .txt h2{font-size:clamp(40px,5vw,72px);margin:16px 0 24px}
+  .zig .txt p{color:var(--muted);max-width:440px;margin-bottom:28px}
+  .zig.rev .fig{grid-column:3;grid-row:1}
+  .zig.rev .txt{grid-column:1;grid-row:1}
+  .zig:not(.rev) .txt{grid-column:3}
+
+  /* pull quote */
+  .pull{background:var(--stone);text-align:center;padding:160px 0}
+  .pull blockquote{font:italic 500 clamp(32px,4.4vw,64px)/1.15 var(--display);max-width:1050px;margin:24px auto}
+
+  /* practitioners */
+  .people{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px}
+  .people .media{--ar:3/4}
+  .people h3{font-size:30px;margin-top:20px}
+  .people p{color:var(--muted);font-size:14px}
+
+  /* booking split */
+  .split{display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+  .split .l{background:var(--ink);color:var(--paper);padding:96px 64px;display:flex;flex-direction:column;justify-content:space-between}
+  .split .l h2{font-size:clamp(48px,6vw,96px)}
+  .split .l .label{color:#9A958C}
+  .split .r{padding:96px 64px;display:flex;flex-direction:column;justify-content:center}
+  .split form{display:grid;gap:30px}
+  .split input,.split select{border:none;border-bottom:1px solid var(--ink);background:transparent;padding:14px 0;font:inherit;font-size:18px;outline:none}
+  .split button{justify-self:start;background:var(--ink);color:var(--paper);border:none;padding:18px 40px;font:600 14px var(--body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+
+  footer{padding:80px 0 32px}
+  .fw{font:500 clamp(70px,16vw,240px)/.85 var(--display);letter-spacing:-.03em;border-bottom:1px solid var(--line);padding-bottom:28px}
+  .fmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:24px;font-size:14px;color:var(--muted)}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--ink);color:var(--paper);font:600 12px var(--body);padding:8px 14px;border-radius:999px}
+
+  @media (max-width:900px){
+    .menu{display:none}
+    .hero-row,.intro,.split{grid-template-columns:1fr}
+    .hero-row .r{justify-self:start}
+    .zig,.zig.rev{grid-template-columns:1fr;gap:28px;margin-bottom:80px}
+    .zig .fig,.zig .txt,.zig.rev .fig,.zig.rev .txt,.zig:not(.rev) .txt{grid-column:1;grid-row:auto}
+    .people{grid-template-columns:1fr}
+    .split .l,.split .r{padding:56px 24px}
+    section{padding:80px 0}
+    .wrap{padding:0 20px}
+    .counter{display:none}
+  }
+  /* Phones and reduced motion: treatments become a swipeable row instead of a pinned gallery */
+  .static .hscroll .pin{position:static;height:auto;padding:80px 0}
+  .static .track{overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;transform:none!important}
+  .static .slide{scroll-snap-align:start}
+  .static .bar{display:none}
+</style>
+<script>
+  // Hide animated elements only when motion is allowed, so the page is always complete without JS
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('js');
+  if (reduce || innerWidth <= 900) document.documentElement.classList.add('static');
+</script>
+</head>
+<body>
+<div class="counter" aria-hidden="true"><b id="secNum">01</b> / 06 · <span id="secName">Introduction</span></div>
+
+<header class="wrap">
+  <nav><div class="logo">Atelier Physio</div>
+    <div class="menu"><a href="#approach">Approach</a><a href="#treatments">Treatments</a><a href="#people">Practitioners</a><a href="#book" class="link">Book</a></div></nav>
+</header>
+
+<!-- HERO · giant headline rises letter by letter and drifts up on scroll; the 21:9 IMAGE opens from inset to full width -->
+<section class="hero" data-sec="01" data-name="Introduction">
+  <div class="wrap">
+    <h1 id="heroTitle"><span class="rise" data-split>Move without</span><br><i class="rise" data-split>limits.</i></h1>
+    <div class="hero-row" data-reveal style="--d:.6s">
+      <p>A boutique physiotherapy studio pairing expert manual therapy with considered, unhurried care.</p>
+      <div class="r"><a href="#book" class="link">Book a consultation →</a><a href="#treatments" class="link">Treatments</a></div>
+    </div>
+  </div>
+  <!-- MEDIA ZONE · CINEMATIC HERO IMAGE (or muted loop VIDEO) · 2400×1029 · 21:9 -->
+  <div class="expand" id="expand">
+    <figure class="media" data-label="FULL-WIDTH HERO IMAGE (or video)&#10;2400 × 1029 · 21:9&#10;studio interior / hands-on treatment"><img src="" alt="Treatment studio"></figure>
+  </div>
+</section>
+
+<!-- APPROACH · label + statement fade up -->
+<section id="approach" data-sec="02" data-name="Approach">
+  <div class="wrap intro">
+    <div class="label" data-reveal>(01) — Approach</div>
+    <p class="big" data-reveal style="--d:.15s">We treat people, not diagnoses. Every session is sixty minutes, one-to-one, in a quiet space designed to slow down, so your body can recover properly.</p>
+  </div>
+</section>
+
+<!-- TREATMENTS · pinned section; vertical scrolling moves the cards sideways (swipeable row on phones) -->
+<section id="treatments" class="hscroll" data-sec="03" data-name="Treatments">
+  <div class="pin">
+    <div class="wrap top"><div><div class="label">(02) — Treatments</div><h2 style="margin-top:14px">Four ways we treat</h2></div><span class="label">Scroll →</span></div>
+    <div class="track" id="track">
+      <article class="slide"><span class="n">01</span><figure class="media" data-label="TREATMENT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure><h3>Manual Therapy</h3><p>Joint mobilisation and soft-tissue work for lasting relief.</p></article>
+      <article class="slide"><span class="n">02</span><figure class="media" data-label="TREATMENT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure><h3>Clinical Pilates</h3><p>Small-group and private reformer sessions.</p></article>
+      <article class="slide"><span class="n">03</span><figure class="media" data-label="TREATMENT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure><h3>Post-Operative Care</h3><p>Precise, staged rehab after orthopaedic surgery.</p></article>
+      <article class="slide"><span class="n">04</span><figure class="media" data-label="TREATMENT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure><h3>Movement Assessment</h3><p>Video-based analysis of posture and mechanics.</p></article>
+      <article class="slide end"><h3>Not sure where to start?</h3><p>Book an initial consultation and we'll recommend the right treatment.</p><a href="#book" class="link" style="justify-self:start">Book a consultation →</a></article>
+    </div>
+    <div class="bar"><i id="trackBar"></i></div>
+  </div>
+</section>
+
+<!-- STUDIO & METHOD · zig-zag; IMAGE and VIDEO wipe in from the side, text fades up -->
+<section data-sec="04" data-name="The Studio">
+  <div class="wrap">
+    <div class="zig">
+      <div class="fig" data-slide><figure class="media" data-label="PORTRAIT IMAGE&#10;1200 × 1500 · 4:5"><img src="" alt=""></figure></div>
+      <div class="txt" data-reveal style="--d:.3s"><div class="label">(03) — The Studio</div><h2>Designed for stillness</h2><p>Natural light, soft materials and private treatment rooms. No crowded gyms, no rushing between patients.</p><a class="link">Visit the studio</a></div>
+    </div>
+    <div class="zig rev">
+      <div class="fig" data-slide><figure class="media" data-label="▶ PORTRAIT VIDEO&#10;1080 × 1350 · 4:5 · MP4 loop"><video src="" poster="" autoplay muted loop playsinline></video></figure></div>
+      <div class="txt" data-reveal style="--d:.3s"><div class="label">(04) — Method</div><h2>Hands first,<br>then movement</h2><p>We combine skilled hands-on treatment with a short, beautifully simple home programme you'll actually follow.</p><a class="link">Our method</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE · words light up one by one as you scroll through -->
+<section class="pull">
+  <div class="wrap">
+    <div class="label">Patient words</div>
+    <blockquote class="words" id="quote">"The most thoughtful care I've ever received. I left every session feeling lighter."</blockquote>
+    <div class="label">— Clara M., Architect</div>
+  </div>
+</section>
+
+<!-- PRACTITIONERS · portraits stagger in and warm from black-and-white -->
+<section id="people" data-sec="05" data-name="Practitioners">
+  <div class="wrap">
+    <div class="label" data-reveal>(05) — Practitioners</div>
+    <div class="people">
+      <div data-reveal><figure class="media mono" data-mono data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure><h3>Hannah Reyes</h3><p>Founder · MSc Physiotherapy</p></div>
+      <div data-reveal style="--d:.15s"><figure class="media mono" data-mono data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure><h3>Tomas Berg</h3><p>Manual Therapist</p></div>
+      <div data-reveal style="--d:.3s"><figure class="media mono" data-mono data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure><h3>Yuki Tanaka</h3><p>Clinical Pilates Lead</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING · split screen; dark panel and form fields slide up -->
+<section id="book" style="padding:0" data-sec="06" data-name="Book">
+  <div class="split">
+    <div class="l"><div class="label">(06) — Book</div><h2 data-reveal>Begin with a conversation.</h2><p style="color:#B9B4AA;font-size:14px">14 Linden Mews, London · +44 20 0000 0000<br>Mon–Fri 8–20 · Sat 9–14</p></div>
+    <div class="r">
+      <form onsubmit="return false">
+        <input id="a-name" placeholder="Name" data-reveal><input id="a-email" placeholder="Email" data-reveal style="--d:.1s"><input id="a-phone" placeholder="Phone" data-reveal style="--d:.2s">
+        <select id="a-treat" data-reveal style="--d:.3s"><option>Treatment of interest</option><option>Manual Therapy</option><option>Clinical Pilates</option><option>Post-Operative Care</option></select>
+        <button data-reveal style="--d:.4s">Request appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fw"><span class="rise" data-split>Atelier</span></div>
+    <div class="fmeta"><span>© 2026 Atelier Physio</span><span>Instagram · Journal · Careers</span></div>
+  </div>
+</footer>
+
+<a class="back" href="../../index.html">← All designs</a>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const motion = root.classList.contains('js');
+  const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+
+  // Split headings into letters (kept whole per word) and the quote into words
+  document.querySelectorAll('[data-split]').forEach(el => {
+    let i = 0;
+    el.innerHTML = el.textContent.split(' ').map(w =>
+      '<span class="w">' + [...w].map(c => `<span class="ch" style="--i:${i++}">${c}</span>`).join('') + '</span>'
+    ).join(' ');
+  });
+  const quote = document.getElementById('quote');
+  quote.innerHTML = quote.textContent.split(' ').map(w => `<span class="wd">${w}</span>`).join(' ');
+  const words = [...quote.querySelectorAll('.wd')];
+
+  // Reveal on entering the viewport
+  // A fully clipped slide has no visible area, so we watch its parent and animate the slide itself
+  const targets = [...document.querySelectorAll('[data-reveal],[data-slide],[data-split],[data-mono]')];
+  const watched = new Map();
+  targets.forEach(el => {
+    const w = el.hasAttribute('data-slide') ? el.parentElement : el;
+    if (!watched.has(w)) watched.set(w, []);
+    watched.get(w).push(el);
+  });
+  if (motion && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting){ watched.get(e.target).forEach(el => el.classList.add('in')); io.unobserve(e.target); }
+    }), {threshold:.2, rootMargin:'0px 0px -6% 0px'});
+    watched.forEach((_, w) => io.observe(w));
+  } else targets.forEach(el => el.classList.add('in'));
+  if (!motion) words.forEach(w => w.classList.add('lit'));
+
+  // Scroll-linked effects
+  const title = document.getElementById('heroTitle');
+  const expand = document.getElementById('expand');
+  const exMedia = expand.querySelector('.media');
+  const hs = document.querySelector('.hscroll'), track = document.getElementById('track'), tbar = document.getElementById('trackBar');
+  const secs = [...document.querySelectorAll('[data-sec]')];
+  const secNum = document.getElementById('secNum'), secName = document.getElementById('secName');
+  let travel = 0;
+
+  function layout(){
+    const pinned = !root.classList.contains('static');
+    if (pinned){
+      travel = Math.max(0, track.scrollWidth - innerWidth);
+      hs.style.height = (innerHeight + travel) + 'px';
+    } else { hs.style.height = ''; track.style.transform = ''; }
+  }
+
+  function frame(){
+    const vh = innerHeight;
+    if (motion){
+      // Headline drifts up and softens as the page scrolls
+      const y = scrollY;
+      title.style.transform = `translate3d(0,${(-y*0.25).toFixed(1)}px,0)`;
+      title.style.opacity = clamp(1 - y/(vh*0.9), .25, 1);
+      // Hero image opens from an inset frame to full bleed
+      const r = expand.getBoundingClientRect();
+      const p = clamp((vh - r.top) / (vh * 0.9), 0, 1);
+      const inset = (1 - p) * Math.min(120, innerWidth * 0.08);
+      expand.style.setProperty('--x', inset.toFixed(1) + 'px');
+      exMedia.style.transform = `scale(${(1 + (1-p)*0.06).toFixed(3)})`;
+      // Quote words light up across the section
+      const q = quote.getBoundingClientRect();
+      const qp = clamp((vh*0.85 - q.top) / (q.height + vh*0.35), 0, 1);
+      const lit = Math.round(qp * words.length);
+      words.forEach((w,i) => w.classList.toggle('lit', i < lit));
+    }
+    // Pinned treatments travel sideways
+    if (!root.classList.contains('static')){
+      const top = hs.getBoundingClientRect().top;
+      const tp = clamp(-top / Math.max(1, travel), 0, 1);
+      track.style.transform = `translate3d(${(-tp*travel).toFixed(1)}px,0,0)`;
+      tbar.style.transform = `scaleX(${tp})`;
+    }
+    // Section counter
+    let cur = secs[0];
+    secs.forEach(s => { if (s.getBoundingClientRect().top < vh*0.5) cur = s; });
+    secNum.textContent = cur.dataset.sec; secName.textContent = cur.dataset.name;
+    ticking = false;
+  }
+
+  let ticking = false;
+  addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(frame); } }, {passive:true});
+  addEventListener('resize', () => {
+    root.classList.toggle('static', reduce || innerWidth <= 900);
+    layout(); frame();
+  });
+  addEventListener('load', () => { layout(); frame(); });
+  layout(); frame();
+})();
+</script>
+</body>
+</html>

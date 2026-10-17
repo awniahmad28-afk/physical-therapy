@@ -7,20 +7,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* Linen: airy and light, wide margins, asymmetric. Overlapping images, tall triptych, time-slot booking. */
+  /* Linen: airy and light, wide margins, asymmetric. Scroll motion: line-by-line headline, curtain-wipe image reveals,
+     gentle parallax, count-up figures, a drifting press marquee and a reading-progress hairline. */
   :root{
     --paper:#FBF9F6; --charcoal:#2B2926; --stone:#CFC6B8; --clay:#A88B76; --blush:#F1E9E1; --muted:#807870;
     --ph1:#F0EBE4; --ph2:#E9E2D9; --phText:#9C9085;
     --display:"Instrument Serif",Georgia,serif; --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--body);color:var(--charcoal);background:var(--paper);line-height:1.7;font-size:16px}
+  body{font-family:var(--body);color:var(--charcoal);background:var(--paper);line-height:1.7;font-size:16px;overflow-x:hidden}
   h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.02;text-wrap:balance}
   em{font-style:italic;color:var(--clay)}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1360px;margin:0 auto;padding:0 56px}
   .tag{font:500 11px var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-  .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;background:var(--charcoal);color:var(--paper);font:500 14px var(--body);border:none;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;background:var(--charcoal);color:var(--paper);font:500 14px var(--body);border:none;cursor:pointer;transition:transform .3s var(--ease)}
+  .btn:hover{transform:translateY(-2px)}
   .btn.line{background:transparent;color:var(--charcoal);border:1px solid var(--charcoal)}
   section{padding:150px 0}
 
@@ -33,9 +36,31 @@
   .media>img[src=""],.media>video[src=""]{display:none}
   figcaption{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.04em}
 
+  /* ---------- SCROLL MOTION ---------- */
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--clay);transform-origin:0 50%;transform:scaleX(0);z-index:60}
+  .js [data-reveal]{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s)}
+  .js [data-reveal].in{opacity:1;transform:none}
+  .js [data-wipe]{clip-path:inset(100% 0 0 0);transition:clip-path 1.5s cubic-bezier(.7,0,.2,1);transition-delay:var(--d,0s)}
+  .js [data-wipe].in{clip-path:inset(0 0 0 0)}
+  .js [data-wipe] > *{transform:scale(1.18);transition:transform 2.2s var(--ease);transition-delay:var(--d,0s)}
+  .js [data-wipe].in > *{transform:scale(1)}
+  .js [data-wipe]::after{transform:translateY(-50%) scale(1.18);transition:transform 2.2s var(--ease)}
+  .js [data-wipe].in::after{transform:translateY(-50%)}
+  .lines .ln{display:block;overflow:hidden;padding-bottom:.06em}
+  .lines .ln > span{display:block}
+  .js .lines .ln > span{transform:translateY(110%);animation:lineUp 1.3s var(--ease) forwards;animation-delay:calc(.15s + var(--i) * .14s)}
+  @keyframes lineUp{to{transform:none}}
+  [data-speed]{will-change:transform}
+  .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .marquee .track{display:flex;gap:96px;width:max-content;animation:marq 38s linear infinite}
+  @keyframes marq{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){
+    .marquee .track{animation:none}
+    .js .lines .ln > span{animation:none;transform:none}
+  }
+
   nav{display:flex;justify-content:space-between;align-items:center;height:96px}
   .logo{font:400 30px var(--display)}
-  .logo em{color:var(--clay)}
   .menu{display:flex;gap:36px;font-size:14px;align-items:center}
 
   /* hero: headline left / overlapping images right */
@@ -45,11 +70,11 @@
   .hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
   .stack{position:relative;padding:0 0 18% 14%}
   .stack figure:first-child .media{--ar:4/5}
-  .stack .over{position:absolute;left:0;bottom:0;width:46%;border:10px solid var(--paper)}
+  .stack .over{position:absolute;left:0;bottom:0;width:46%;border:10px solid var(--paper);z-index:2}
   .stack .over .media{--ar:1/1}
   .stack .note{position:absolute;right:-12px;top:24px;writing-mode:vertical-rl;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
 
-  /* philosophy: drop cap */
+  /* philosophy */
   .phil{background:var(--blush)}
   .phil .wrap{display:grid;grid-template-columns:1fr 1fr;gap:96px}
   .phil h2{font-size:clamp(44px,5vw,76px)}
@@ -59,33 +84,33 @@
   /* triptych */
   .head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:64px;flex-wrap:wrap}
   .head h2{font-size:clamp(44px,5vw,76px)}
-  .trip{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .trip{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;align-items:start}
   .trip article:nth-child(2){margin-top:96px}
   .trip .media{--ar:2/3}
   .trip h3{font-size:34px;margin:24px 0 8px}
   .trip p{color:var(--muted);font-size:15px;max-width:340px}
   .trip .more{display:inline-block;margin-top:14px;font-size:13px;border-bottom:1px solid var(--stone);padding-bottom:2px}
 
-  /* video beside text */
+  /* studio */
   .vid .wrap{display:grid;grid-template-columns:5fr 7fr;gap:96px;align-items:center}
   .vid .media{--ar:4/5}
   .vid h2{font-size:clamp(40px,4.4vw,64px);margin:20px 0 26px}
   .vid p{color:var(--muted);max-width:520px;margin-bottom:34px}
   .facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--stone);padding-top:28px;gap:24px}
-  .facts b{display:block;font:400 42px var(--display)}
+  .facts b{display:block;font:400 42px var(--display);font-variant-numeric:tabular-nums}
   .facts span{font-size:13px;color:var(--muted)}
 
   /* press */
   .press{padding:56px 0;border-top:1px solid var(--stone);border-bottom:1px solid var(--stone)}
-  .press .wrap{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;font:italic 400 26px var(--display);color:#A79D92}
+  .press .track span{font:italic 400 30px var(--display);color:#A79D92;white-space:nowrap}
 
-  /* testimonial: image + quote */
+  /* testimonial */
   .test .wrap{display:grid;grid-template-columns:7fr 4fr;gap:80px;align-items:end}
   .test blockquote{font:400 clamp(32px,3.8vw,56px)/1.18 var(--display)}
   .test cite{display:block;margin-top:30px;font-style:normal;font-size:14px;color:var(--muted)}
   .test .media{--ar:3/4}
 
-  /* booking with time slots */
+  /* booking */
   .book{background:var(--charcoal);color:var(--paper)}
   .book .wrap{display:grid;grid-template-columns:5fr 7fr;gap:96px}
   .book h2{font-size:clamp(48px,5.6vw,88px);margin:20px 0 24px}
@@ -125,90 +150,100 @@
     .wrap{padding:0 20px}
   }
 </style>
+<script>
+  // Hide animated elements only when motion is allowed, so the page is always complete without JS
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js');
+</script>
 </head>
 <body>
+<div class="progress" aria-hidden="true"></div>
 
 <header class="wrap">
   <nav><div class="logo">Linen <em>Physio</em></div>
     <div class="menu"><a href="#approach">Approach</a><a href="#care">Care</a><a href="#studio">Studio</a><a href="#book" class="btn">Book a visit</a></div></nav>
 </header>
 
-<!-- HERO · headline left / two OVERLAPPING IMAGES right -->
+<!-- HERO · headline rises line by line / two OVERLAPPING IMAGES wipe in, detail image drifts on scroll -->
 <div class="wrap">
   <section class="hero">
     <div>
-      <div class="tag">Physiotherapy · Pilates · Recovery</div>
-      <h1 style="margin-top:24px">Gentle hands.<br><em>Lasting</em> strength.</h1>
-      <p>A light-filled physiotherapy studio where expert treatment and calm surroundings help you move with ease again.</p>
-      <div class="ctas"><a href="#book" class="btn">Book a visit →</a><a href="#care" class="btn line">Our care</a></div>
+      <div class="tag" data-reveal>Physiotherapy · Pilates · Recovery</div>
+      <h1 class="lines" style="margin-top:24px"><span class="ln"><span style="--i:0">Gentle hands.</span></span><span class="ln"><span style="--i:1"><em>Lasting</em></span></span><span class="ln"><span style="--i:2">strength.</span></span></h1>
+      <p data-reveal style="--d:.5s">A light-filled physiotherapy studio where expert treatment and calm surroundings help you move with ease again.</p>
+      <div class="ctas" data-reveal style="--d:.65s"><a href="#book" class="btn">Book a visit →</a><a href="#care" class="btn line">Our care</a></div>
     </div>
     <div class="stack">
       <!-- MEDIA ZONE · MAIN HERO IMAGE · 1200×1500 · 4:5 -->
-      <figure><div class="media" data-label="MAIN IMAGE&#10;1200 × 1500 · 4:5&#10;studio, natural light"><img src="" alt=""></div></figure>
+      <figure><div class="media" data-wipe style="--d:.2s" data-label="MAIN IMAGE&#10;1200 × 1500 · 4:5&#10;studio, natural light"><img src="" alt=""></div></figure>
       <!-- MEDIA ZONE · OVERLAP DETAIL IMAGE · 800×800 · 1:1 -->
-      <figure class="over"><div class="media" data-label="DETAIL&#10;800 × 800 · 1:1"><img src="" alt=""></div></figure>
+      <figure class="over" data-speed="-0.12"><div class="media" data-wipe style="--d:.6s" data-label="DETAIL&#10;800 × 800 · 1:1"><img src="" alt=""></div></figure>
       <span class="note">Studio · Primrose Hill</span>
     </div>
   </section>
 </div>
 
-<!-- PHILOSOPHY · blush band, heading left / drop-cap text right -->
+<!-- PHILOSOPHY · heading and paragraphs fade up in sequence -->
 <section id="approach" class="phil">
   <div class="wrap">
-    <div><div class="tag">Approach</div><h2 style="margin-top:20px">Care that feels as good as it <em>works</em>.</h2></div>
+    <div data-reveal><div class="tag">Approach</div><h2 style="margin-top:20px">Care that feels as good as it <em>works</em>.</h2></div>
     <div>
-      <p>We believe recovery happens best when you feel at ease. Our studio is bright and quiet, our sessions are unhurried, and your physiotherapist stays with you from first visit to last.</p>
-      <p>Each plan blends evidence-based manual therapy with mindful movement, so the progress you make in the studio carries into everyday life.</p>
+      <p data-reveal style="--d:.15s">We believe recovery happens best when you feel at ease. Our studio is bright and quiet, our sessions are unhurried, and your physiotherapist stays with you from first visit to last.</p>
+      <p data-reveal style="--d:.3s">Each plan blends evidence-based manual therapy with mindful movement, so the progress you make in the studio carries into everyday life.</p>
     </div>
   </div>
 </section>
 
-<!-- CARE · staggered triptych of tall IMAGES -->
+<!-- CARE · staggered triptych; tall IMAGES wipe in one after another, middle column drifts on scroll -->
 <section id="care">
   <div class="wrap">
-    <div class="head"><div><div class="tag">Care</div><h2 style="margin-top:20px">Three ways we help</h2></div><a href="#book" class="btn line">See all treatments</a></div>
+    <div class="head" data-reveal><div><div class="tag">Care</div><h2 style="margin-top:20px">Three ways we help</h2></div><a href="#book" class="btn line">See all treatments</a></div>
     <div class="trip">
-      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Physiotherapy</h3><p>Assessment and hands-on treatment for pain, injury and post-operative recovery.</p><a class="more" href="#book">Learn more</a></article>
-      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Clinical Pilates</h3><p>Private and duo reformer sessions guided by a physiotherapist.</p><a class="more" href="#book">Learn more</a></article>
-      <article><figure class="media" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><h3>Pre &amp; Postnatal</h3><p>Pelvic health and gentle strength before and after birth.</p><a class="more" href="#book">Learn more</a></article>
+      <article><figure class="media" data-wipe data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><div data-reveal style="--d:.3s"><h3>Physiotherapy</h3><p>Assessment and hands-on treatment for pain, injury and post-operative recovery.</p><a class="more" href="#book">Learn more</a></div></article>
+      <article data-speed="0.08"><figure class="media" data-wipe style="--d:.2s" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><div data-reveal style="--d:.5s"><h3>Clinical Pilates</h3><p>Private and duo reformer sessions guided by a physiotherapist.</p><a class="more" href="#book">Learn more</a></div></article>
+      <article><figure class="media" data-wipe style="--d:.4s" data-label="TALL IMAGE&#10;1000 × 1500 · 2:3"><img src="" alt=""></figure><div data-reveal style="--d:.7s"><h3>Pre &amp; Postnatal</h3><p>Pelvic health and gentle strength before and after birth.</p><a class="more" href="#book">Learn more</a></div></article>
     </div>
   </div>
 </section>
 
-<!-- STUDIO · portrait VIDEO left / text + facts right -->
+<!-- STUDIO · portrait VIDEO wipes in / figures count up when they come into view -->
 <section id="studio" class="vid" style="padding-top:0">
   <div class="wrap">
     <!-- MEDIA ZONE · STUDIO VIDEO · 1080×1350 · 4:5 -->
-    <figure><div class="media" data-label="▶ STUDIO VIDEO&#10;1080 × 1350 · 4:5 · MP4, muted loop"><video src="" poster="" autoplay muted loop playsinline></video></div><figcaption>Morning light in the reformer studio</figcaption></figure>
+    <figure><div class="media" data-wipe data-label="▶ STUDIO VIDEO&#10;1080 × 1350 · 4:5 · MP4, muted loop"><video src="" poster="" autoplay muted loop playsinline></video></div><figcaption>Morning light in the reformer studio</figcaption></figure>
     <div>
-      <div class="tag">The studio</div>
-      <h2>A place to <em>slow down</em> and heal</h2>
-      <p>Four private treatment rooms and a reformer studio, set in a restored Victorian building with tall windows and linen-soft interiors.</p>
-      <div class="facts"><div><b>4</b><span>Private rooms</span></div><div><b>55'</b><span>Every session</span></div><div><b>4.9</b><span>Google rating</span></div></div>
+      <div data-reveal><div class="tag">The studio</div><h2>A place to <em>slow down</em> and heal</h2></div>
+      <p data-reveal style="--d:.15s">Four private treatment rooms and a reformer studio, set in a restored Victorian building with tall windows and linen-soft interiors.</p>
+      <div class="facts" data-reveal style="--d:.3s"><div><b data-count="4">4</b><span>Private rooms</span></div><div><b data-count="55" data-suffix="'">55'</b><span>Minutes, every session</span></div><div><b data-count="4.9" data-dec="1">4.9</b><span>Google rating</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- PRESS · italic wordmarks -->
-<div class="press"><div class="wrap"><span class="tag" style="font-style:normal">As featured in</span><span>Vogue</span><span>The Times</span><span>Harper's Bazaar</span><span>Condé Nast Traveller</span></div></div>
+<!-- PRESS · slowly drifting wordmark marquee -->
+<div class="press">
+  <div class="wrap" style="display:grid;gap:20px"><span class="tag">As featured in</span></div>
+  <div class="marquee" style="margin-top:18px"><div class="track">
+    <span>Vogue</span><span>The Times</span><span>Harper's Bazaar</span><span>Condé Nast Traveller</span><span>The Telegraph</span><span>Monocle</span>
+    <span aria-hidden="true">Vogue</span><span aria-hidden="true">The Times</span><span aria-hidden="true">Harper's Bazaar</span><span aria-hidden="true">Condé Nast Traveller</span><span aria-hidden="true">The Telegraph</span><span aria-hidden="true">Monocle</span>
+  </div></div>
+</div>
 
-<!-- TESTIMONIAL · large quote left / PORTRAIT right -->
+<!-- TESTIMONIAL · quote fades up / PORTRAIT wipes in and drifts -->
 <section class="test">
   <div class="wrap">
-    <div><div class="tag">Patient words</div><blockquote style="margin-top:24px">"I came in with a back I'd given up on. I left with strength I didn't know I had, and I genuinely looked forward to every visit."</blockquote><cite>Harriet B. · Patient since 2024</cite></div>
-    <figure class="media" data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure>
+    <div data-reveal><div class="tag">Patient words</div><blockquote style="margin-top:24px">"I came in with a back I'd given up on. I left with strength I didn't know I had, and I genuinely looked forward to every visit."</blockquote><cite>Harriet B. · Patient since 2024</cite></div>
+    <div data-speed="-0.08"><figure class="media" data-wipe style="--d:.2s" data-label="PORTRAIT&#10;900 × 1200 · 3:4"><img src="" alt=""></figure></div>
   </div>
 </section>
 
-<!-- BOOKING · dark band, intro left / time-slot card right -->
+<!-- BOOKING · dark band, card rises in -->
 <section id="book" class="book">
   <div class="wrap">
-    <div>
+    <div data-reveal>
       <div class="tag">Book a visit</div>
       <h2>Choose a time that <em>suits you</em>.</h2>
       <p class="info">21 Chalcot Road, Primrose Hill<br>+44 20 0000 0000 · hello@linenphysio.com<br>Mon–Fri 7:30–20:00 · Sat 8:30–14:00</p>
     </div>
-    <form class="card" onsubmit="return false">
+    <form class="card" data-reveal style="--d:.2s" onsubmit="return false">
       <h3>Initial assessment</h3>
       <p style="color:var(--muted);font-size:14px">55 minutes · with a senior physiotherapist</p>
       <div class="days">
@@ -232,7 +267,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="fg">
+    <div class="fg" data-reveal>
       <div><div class="logo">Linen <em>Physio</em></div></div>
       <div><span class="tag">Visit</span>21 Chalcot Road<br>London NW1</div>
       <div><span class="tag">Contact</span>+44 20 0000 0000<br>hello@linenphysio.com</div>
@@ -243,5 +278,63 @@
 </footer>
 
 <a class="back" href="../../index.html">← All designs</a>
+
+<script>
+(() => {
+  const motion = document.documentElement.classList.contains('js');
+  const bar = document.querySelector('.progress');
+  const movers = [...document.querySelectorAll('[data-speed]')];
+
+  // Count a figure up from zero once it is on screen
+  function countUp(el){
+    const to = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
+    const t0 = performance.now(), dur = 1600;
+    (function step(t){
+      const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
+      el.textContent = (to*e).toFixed(dec) + suf;
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  // Reveal, wipe and count elements as they enter the viewport.
+  // A fully clipped wipe has no visible area, so we watch its parent and animate the wipe itself.
+  const targets = [...document.querySelectorAll('[data-reveal],[data-wipe],[data-count]')];
+  const watched = new Map();
+  targets.forEach(el => {
+    const w = el.hasAttribute('data-wipe') ? el.parentElement : el;
+    if (!watched.has(w)) watched.set(w, []);
+    watched.get(w).push(el);
+  });
+  function show(el){ el.classList.add('in'); if (el.dataset.count && motion) countUp(el); }
+  if (motion && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      watched.get(en.target).forEach(show);
+      io.unobserve(en.target);
+    }), {threshold:.15, rootMargin:'0px 0px -6% 0px'});
+    watched.forEach((_, w) => io.observe(w));
+  } else {
+    targets.forEach(el => el.classList.add('in'));
+  }
+
+  // Reading progress and gentle parallax, batched into one frame per scroll
+  let ticking = false;
+  function frame(){
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY/max : 0})`;
+    if (motion && innerWidth > 960){
+      movers.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const off = (r.top + r.height/2 - innerHeight/2) * parseFloat(el.dataset.speed);
+        el.style.transform = `translate3d(0,${off.toFixed(1)}px,0)`;
+      });
+    }
+    ticking = false;
+  }
+  addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(frame); } }, {passive:true});
+  addEventListener('resize', frame);
+  frame();
+})();
+</script>
 </body>
 </html>

@@ -34,19 +34,27 @@
   .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
   .media>img[src=""],.media>video[src=""]{display:none}
 
-  /* split hero: text left, full-height IMAGE right */
-  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-  .hero .l{display:flex;flex-direction:column;justify-content:space-between;padding:40px 64px 64px}
+  /* hero: full-screen background VIDEO, copy anchored bottom-left */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:40px 64px 56px;background:var(--deep)}
+  .hero > video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(14,23,19,.88) 0%,rgba(14,23,19,.45) 55%,rgba(14,23,19,.15)),linear-gradient(0deg,rgba(14,23,19,.9),transparent 45%)}
+  .hero > *:not(video){position:relative;z-index:2}
   nav{display:flex;justify-content:space-between;align-items:center}
   .logo{font:400 28px var(--display);letter-spacing:.08em}
   .menu{display:flex;gap:32px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .hero h1{font-size:clamp(56px,7vw,112px);margin:28px 0}
-  .hero p{max-width:440px;color:var(--muted);font-size:17px;margin-bottom:44px}
-  .hero .meta{display:flex;gap:48px;border-top:1px solid var(--sage);padding-top:28px;font-size:13px;color:var(--muted)}
+  .hero h1{font-size:clamp(64px,9.5vw,152px);margin:24px 0 26px}
+  .hero p{max-width:460px;color:#C2C9C3;font-size:17px;margin-bottom:40px}
+  .hero .copy > *{opacity:0;transform:translateY(20px);animation:rise 1.3s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero .copy > *:nth-child(2){animation-delay:.2s}.hero .copy > *:nth-child(3){animation-delay:.4s}.hero .copy > *:nth-child(4){animation-delay:.6s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;border-top:1px solid rgba(237,230,216,.18);padding-top:28px;margin-top:64px}
+  .hero .meta{display:flex;gap:56px;font-size:13px;color:var(--muted);flex-wrap:wrap}
   .hero .meta b{display:block;font:400 30px var(--display);color:var(--cream)}
-  .hero .r{position:relative}
-  .hero .r .media{position:absolute;inset:0;aspect-ratio:auto}
-  .hero .r .badge{position:absolute;right:40px;top:40px;z-index:2;width:120px;height:120px;border-radius:50%;border:1px solid var(--brass);display:grid;place-items:center;text-align:center;font:500 10px/1.6 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--brass);background:rgba(14,23,19,.6)}
+  .hero .vctl{display:flex;align-items:center;gap:18px;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+  .vbtn{width:52px;height:52px;border-radius:50%;border:1px solid var(--brass);background:rgba(14,23,19,.5);color:var(--brass);font-size:14px;cursor:pointer}
+  .vbtn:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+  .hero .badge{position:absolute;right:64px;top:120px;width:120px;height:120px;border-radius:50%;border:1px solid var(--brass);display:grid;place-items:center;text-align:center;font:500 10px/1.6 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--brass);background:rgba(14,23,19,.5)}
+  @media (prefers-reduced-motion:reduce){.hero .copy > *{animation:none;opacity:1;transform:none}}
 
   /* intro */
   .intro{display:grid;grid-template-columns:1fr 2fr;gap:64px}
@@ -113,8 +121,8 @@
 
   @media (max-width:960px){
     .hero,.intro,.method,.book{grid-template-columns:1fr}
-    .hero .l{padding:28px 20px 48px;min-height:auto}
-    .hero .r{min-height:70vh}
+    .hero{padding:28px 20px 40px}
+    .hero .badge{display:none}
     .menu{display:none}
     .item{grid-template-columns:1fr;gap:12px}
     .item .media{opacity:1}
@@ -129,22 +137,27 @@
 </head>
 <body>
 
-<!-- HERO · split screen: text column left / full-height IMAGE right -->
-<section class="hero" style="padding:0">
-  <div class="l">
-    <nav><div class="logo">Nocturne</div><div class="menu"><a href="#treatments">Treatments</a><a href="#method">Method</a><a href="#team">Clinicians</a><a href="#book">Book</a></div></nav>
-    <div>
+<!-- HERO · full-screen background VIDEO, copy bottom-left -->
+<section class="hero">
+  <!-- MEDIA ZONE · HERO VIDEO · 1920×1080 · 16:9 · MP4 (H.264), muted loop 10–20s, under 10 MB.
+       Replace the two source paths and the poster with your own film (an MP4 alone is fine), e.g. ../../media/hero.mp4. The demo file is an ambient placeholder. -->
+  <video id="heroVideo" poster="../../media/demo/nocturne-hero-poster.jpg" autoplay muted loop playsinline>
+    <source src="../../media/demo/nocturne-hero.webm" type="video/webm">
+    <source src="../../media/demo/nocturne-hero.mp4" type="video/mp4">
+  </video>
+  <nav><div class="logo">Nocturne</div><div class="menu"><a href="#treatments">Treatments</a><a href="#method">Method</a><a href="#team">Clinicians</a><a href="#book">Book</a></div></nav>
+  <div class="badge" aria-hidden="true">Since<br>2011</div>
+  <div>
+    <div class="copy">
       <div class="eyebrow">Physiotherapy &amp; Movement Medicine</div>
-      <h1>Recovery, refined.</h1>
+      <h1>Recovery,<br>refined.</h1>
       <p>A private physiotherapy practice for people who expect clinical excellence and quiet, personal attention.</p>
-      <a href="#book" class="link">Arrange a consultation</a>
+      <div><a href="#book" class="link">Arrange a consultation</a></div>
     </div>
-    <div class="meta"><div><b>60 min</b>Every session</div><div><b>Late</b>Until 21:00</div><div><b>Private</b>Suites only</div></div>
-  </div>
-  <div class="r">
-    <!-- MEDIA ZONE · HERO PORTRAIT IMAGE (or VIDEO) · 1200×1600 · 3:4, fills right half -->
-    <figure class="media" data-label="HERO IMAGE or VIDEO&#10;1200 × 1600 · 3:4&#10;low-key, warm light"><img src="" alt="Physiotherapist treating a patient"></figure>
-    <div class="badge">Since<br>2011</div>
+    <div class="foot">
+      <div class="meta"><div><b>60 min</b>Every session</div><div><b>Late</b>Until 21:00</div><div><b>Private</b>Suites only</div></div>
+      <div class="vctl"><span>Demo footage · replace with your clinic film</span><button class="vbtn" id="vToggle" aria-label="Pause video" aria-pressed="false">❚❚</button></div>
+    </div>
   </div>
 </section>
 
@@ -249,5 +262,13 @@
 </footer>
 
 <a class="back" href="../../index.html">← All designs</a>
+
+<script>
+  // Hero video: pause/play control, and stay still for visitors who prefer reduced motion
+  const v=document.getElementById('heroVideo'), b=document.getElementById('vToggle');
+  function setPaused(p){ p ? v.pause() : v.play().catch(()=>{}); b.textContent = p ? '▶' : '❚❚'; b.setAttribute('aria-label', p ? 'Play video' : 'Pause video'); b.setAttribute('aria-pressed',p); }
+  b.addEventListener('click',()=>setPaused(!v.paused));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+</script>
 </body>
 </html>

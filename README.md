@@ -12,6 +12,13 @@ Three classic, refined designs in `designs/elegant/`, built on the editorial sty
 | **Nocturne** `e2-nocturne.html` | Dark, discreet, exclusive | Forest `#14201B`, Cream `#EDE6D8`, Brass `#C2A36B`, Sage `#3A4A42` | Italiana / Figtree | Split-screen hero (text left, full-height ▣ right); statement; ruled treatment list with hover-reveal thumbnails; full-bleed 21:9 ▶ film; ▣ image + 3-stage method; quote band; 4 tall portraits; split booking (dark ▣ panel / cream form) | Hero ▣/▶ 1200×1600 (3:4), thumbs ▣ 800×600, film ▶ 2520×1080 (21:9), method ▣ 1200×1500, portraits ▣ 800×1200 (2:3) |
 | **Linen** `e3-linen.html` | Soft, airy, welcoming | Paper `#FBF9F6`, Charcoal `#2B2926`, Clay `#A88B76`, Blush `#F1E9E1` | Instrument Serif / Instrument Sans | Headline left with two overlapping ▣ right; blush philosophy band with drop cap; staggered triptych of tall ▣; portrait ▶ + facts; press wordmarks; quote + portrait; dark booking band with a day/time picker | Hero ▣ 1200×1500 + ▣ 800×800, triptych ▣ 1000×1500 (2:3), studio ▶ 1080×1350 (4:5), portrait ▣ 900×1200 |
 
+### Video heroes and scroll animation
+
+- **Maison** and **Nocturne** open with a full-screen, muted, looping **video hero** and a pause/play button. Until you add your own film they play a short demo of soft window light (`media/demo/*-hero.webm` / `.mp4`). Swap the `<source>` paths and the `poster` for your footage: 1920×1080, 10–20 s, MP4 (H.264), under 10 MB.
+- **Linen** (`e3-linen.html`) **animates on scroll**: the headline rises line by line, photos wipe in like a curtain, text fades up, figures count up, press names drift past, and a hairline tracks reading progress.
+- **Atelier** (`e4-atelier.html`, an animated version of Design 4) **animates on scroll**: letter-by-letter headline, the hero photo opens to full width, treatments slide sideways in a pinned gallery, the quote lights up word by word, and a section counter follows you down the page. On phones the treatments become a swipeable row.
+- All motion is switched off for visitors whose device asks for reduced motion. The page stays complete and the video stays paused.
+
 **Which suits you:** Maison for a traditional private practice; Nocturne for an exclusive or city-centre clinic; Linen for a boutique physio and Pilates studio or women's health; Atelier for the boldest editorial look.
 
 ---
