@@ -4,9 +4,10 @@ Open **`index.html`** in a browser to see the designs side by side with live thu
 
 ## MOVEWELL (your clinic)
 
-`designs/movewell/movewell.html` is built from the MOVEWELL clinic itself. It uses the logo (redrawn as a crisp graphic) and the tagline "Transforming Pain into Power". Colours come from the rooms: logo navy `#2A3D7E`, wall linen `#F6F4F0`, herringbone floor `#ECEAE6`, walnut `#7A4E36`, curtain peach `#E2B08C` and the poster glow `#EE7A2A`.
+`designs/movewell/movewell.html` is built from the MOVEWELL clinic itself. It uses the two-tone logo from the reception sign (royal `#3036D2` "MOVE", sky `#5AC0F0` "WELL"), redrawn as a crisp graphic, and the tagline "Transforming Pain into Power". Other colours come from the clinic: wall linen `#F6F4F0`, herringbone floor `#ECEAE6`, walnut `#7A4E36`, the business-card green `#3C9C48` and the poster glow `#EE7A2A`.
 
-- **Hero:** a vertical 9:16 reel in a phone-style frame on a herringbone "floor" panel. It's currently a montage made from clinic photos (`media/movewell/movewell-hero.*`). Replace it with a real Instagram reel.
+- **Hero:** a vertical 9:16 reel in a phone-style frame on a herringbone "floor" panel. It's currently a 20-second montage of seven clinic photos, opening on the reception sign (`media/movewell/movewell-hero.*`). Replace it with a real Instagram reel.
+- **Red light therapy:** its own section, styled after the red light room, with the Kurdish caption from the clinic's story.
 - **Photos:** `media/movewell/*.jpg` were cropped from the clinic's Instagram stories. Swap in the original photos for sharper images.
 - **Still to add:** team portraits, WhatsApp and phone numbers, address and opening hours (marked "add" on the page).
 

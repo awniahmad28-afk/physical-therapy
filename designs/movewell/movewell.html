@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MOVEWELL Physiotherapy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&family=Noto+Sans+Arabic:wght@500&display=swap" rel="stylesheet">
 <style>
-  /* MOVEWELL: built from the clinic itself. White walls, pale herringbone floor, walnut stairs, peach curtains,
-     the navy logo, and the orange glow of the anatomy posters. Hero: the clinic's own vertical reel in a phone-style frame. */
+  /* MOVEWELL: built from the clinic itself. The two-blue wall sign (royal MOVE, sky WELL), white walls, pale herringbone
+     floor, walnut wood, the green-to-blue business cards and the orange glow of the anatomy posters.
+     Hero: the clinic's own vertical reel in a phone-style frame. */
   :root{
-    --white:#FFFFFF; --linen:#F6F4F0; --floor:#ECEAE6; --navy:#2A3D7E; --navy-deep:#1B2856; --walnut:#7A4E36;
-    --peach:#E2B08C; --glow:#EE7A2A; --ink:#1E2230; --muted:#626877; --line:#E3E0DA;
+    --white:#FFFFFF; --linen:#F6F4F0; --floor:#ECEAE6; --navy:#3036D2; --navy-deep:#1F2399; --sky:#5AC0F0; --green:#3C9C48; --walnut:#7A4E36;
+    --peach:#E2B08C; --glow:#EE7A2A; --brand-grad:linear-gradient(135deg,#3C9C48,#2E9FB5 55%,#3036D2); --ink:#1E2230; --muted:#626877; --line:#E3E0DA;
     --ph1:#EEEBE6; --ph2:#E6E2DB; --phText:#8C8679;
     --head:Montserrat,"Helvetica Neue",Arial,sans-serif; --body:"Nunito Sans","Helvetica Neue",Arial,sans-serif;
     --parquet:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23E1DED8' stroke-width='1'%3E%3Cpath d='M0 14 14 0M0 42 42 0M14 56 56 14M42 56 56 42M14 0 56 42M0 14 42 56'/%3E%3C/g%3E%3C/svg%3E");
@@ -44,9 +45,9 @@
   .logo{display:inline-flex;flex-direction:column;align-items:center;color:var(--navy);line-height:1}
   .logo .word{display:flex;align-items:flex-end;font:500 26px/1 var(--head);letter-spacing:.02em}
   .logo .word b{font-weight:600}
-  .logo .word span{font-weight:300}
+  .logo .word span{font-weight:300;color:var(--sky)}
   .logo svg{width:.82em;height:1.05em;margin:0 .02em;fill:currentColor}
-  .logo small{font:400 9.5px var(--head);letter-spacing:.06em;margin-top:5px;opacity:.85}
+  .logo small{font:400 9.5px var(--head);letter-spacing:.06em;margin-top:5px;color:var(--muted)}
   .logo.lg .word{font-size:clamp(40px,6vw,64px)}
   .logo.lg small{font-size:clamp(13px,1.4vw,17px)}
 
@@ -69,7 +70,7 @@
   .ticks span{display:inline-flex;align-items:center;gap:8px}
   .ticks span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--glow);box-shadow:0 0 0 4px rgba(238,122,42,.18)}
   .stage{position:relative;border-radius:32px;background:var(--floor) var(--parquet);padding:48px 0;display:grid;place-items:center;min-height:640px}
-  .reel{position:relative;width:min(330px,72%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:var(--ink);box-shadow:0 30px 70px rgba(27,40,86,.25),0 0 0 8px #fff}
+  .reel{position:relative;width:min(330px,72%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:var(--ink);box-shadow:0 30px 70px rgba(31,35,153,.22),0 0 0 8px #fff}
   .reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .reel .bar{position:absolute;left:14px;right:14px;top:14px;display:flex;gap:4px;z-index:2}
   .reel .bar i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.45);overflow:hidden}
@@ -79,7 +80,7 @@
   .chip b{font:600 14px var(--head);display:block}
   .chip span{color:var(--muted);font-size:13px}
   .chip.ig{left:6%;top:12%}
-  .chip.ig i{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--peach),var(--glow));display:grid;place-items:center;color:#fff;font:700 14px var(--head)}
+  .chip.ig i{width:36px;height:36px;border-radius:10px;background:var(--brand-grad);display:grid;place-items:center;color:#fff;font:700 14px var(--head)}
   .chip.bays{right:5%;bottom:14%}
   .chip.bays i{width:36px;height:36px;border-radius:10px;background:var(--navy);display:grid;place-items:center;color:#fff;font:700 13px var(--head)}
 
@@ -98,13 +99,26 @@
   .areas b{display:block;font:600 15px var(--head)}
   .areas span{font-size:13px;color:#A9ADB8}
 
+
+  /* red light therapy: the room's purple ambience and red glow */
+  .rl{background:radial-gradient(ellipse 70% 60% at 85% 80%,rgba(230,40,60,.35),transparent 60%),linear-gradient(160deg,#2A2470,#14102E 60%);color:#EEEAF8;overflow:hidden}
+  .rl .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+  .rl .eyebrow{color:#FF8A8A}
+  .rl .lead{color:#B9B4D8}
+  .rl-img{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:1320/1096;box-shadow:0 40px 90px rgba(230,40,60,.25)}
+  .rl-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .ku{font-family:"Noto Sans Arabic",Tahoma,sans-serif;font-size:clamp(20px,2.2vw,28px);line-height:1.6;margin-top:26px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.06);border-right:4px solid #FF5A5A}
+  .rl ul{list-style:none;display:grid;gap:10px;margin-top:26px}
+  .rl li{display:flex;gap:12px;align-items:baseline}
+  .rl li::before{content:"";width:9px;height:9px;border-radius:50%;background:#FF4D4D;box-shadow:0 0 12px 3px rgba(255,77,77,.6);flex:none;transform:translateY(-1px)}
+
   /* inside the clinic: photo bento */
-  .gal{display:grid;grid-template-columns:1.1fr 1fr 1fr;grid-template-rows:300px 300px;gap:16px;margin-top:48px}
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:300px 300px;gap:16px;margin-top:48px}
   .gal figure{position:relative;border-radius:22px;overflow:hidden;background:var(--linen)}
   .gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
   .gal figure:hover img{transform:scale(1.04)}
   .gal figcaption{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.94);border-radius:10px;padding:8px 12px;font:600 13px var(--head)}
-  .g1{grid-row:span 2} .g2{grid-column:span 2}
+  .g1,.g3{grid-row:span 2} .g2{grid-column:span 2}
 
   /* services */
   .svc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
@@ -142,7 +156,7 @@
   /* booking */
   .book{background:var(--navy);color:#fff;border-radius:36px;margin:0 16px}
   .book .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-  .book .eyebrow{color:var(--peach)}
+  .book .eyebrow{color:var(--sky)}
   .book h2{color:#fff}
   .book form{background:#fff;color:var(--ink);border-radius:24px;padding:34px;display:grid;gap:16px}
   .book label{display:grid;gap:6px;font:600 13px var(--head)}
@@ -151,8 +165,8 @@
   .contact{display:grid;gap:12px;margin-top:32px}
   .contact a,.contact div{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.08)}
   .contact i{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font:700 13px var(--head);flex:none}
-  .contact .wa{background:#25D366;color:#fff}.contact .ph{background:#fff;color:var(--navy)}.contact .igc{background:linear-gradient(135deg,var(--peach),var(--glow));color:#fff}.contact .pin{background:var(--peach);color:var(--navy-deep)}
-  .contact small{display:block;color:#C3CBE6;font-size:13px}
+  .contact .wa{background:#25D366;color:#fff}.contact .ph{background:#fff;color:var(--navy)}.contact .igc{background:var(--brand-grad);color:#fff}.contact .pin{background:var(--peach);color:var(--navy-deep)}
+  .contact small{display:block;color:#C9CCF5;font-size:13px}
   .todo{font-size:12px;color:var(--peach);margin-left:auto;white-space:nowrap}
 
   footer{padding:72px 0 36px;text-align:center}
@@ -169,7 +183,8 @@
     .areas{grid-template-columns:1fr}
     .gal{grid-template-columns:1fr 1fr;grid-template-rows:auto}
     .gal figure{aspect-ratio:4/5}
-    .g1{grid-row:auto}.g2{grid-column:span 2;aspect-ratio:16/10!important}
+    .g1,.g3{grid-row:auto}.g2{grid-column:span 2;aspect-ratio:16/10!important}
+    .rl .wrap{grid-template-columns:1fr!important}
     .svc,.steps,.team{grid-template-columns:1fr}
     .steps::before{display:none}
     .reels{grid-template-columns:1fr 1fr}
@@ -190,7 +205,7 @@
 
 <header><div class="wrap"><nav>
   <a href="#top" class="logo" aria-label="MOVEWELL home"><span class="word"><b>MO</b><svg><use href="#vperson"/></svg><b>E</b><span>WELL</span></span><small>Transforming Pain into Power</small></a>
-  <div class="links"><a href="#pain">Conditions</a><a href="#clinic">The clinic</a><a href="#services">Services</a><a href="#visit">First visit</a><a href="#team">Team</a></div>
+  <div class="links"><a href="#pain">Conditions</a><a href="#clinic">The clinic</a><a href="#services">Services</a><a href="#redlight">Red light</a><a href="#team">Team</a></div>
   <a href="#book" class="btn">Book appointment</a>
 </nav></div></header>
 
@@ -202,7 +217,7 @@
       <h1>Transforming pain into <em>power.</em></h1>
       <p>Modern physiotherapy in a calm, private clinic. We find the cause of your pain, treat it hands-on, and build the strength to keep it away.</p>
       <div class="ctas"><a href="#book" class="btn">Book an appointment →</a><a href="#book" class="btn line">Message us on WhatsApp</a></div>
-      <div class="ticks"><span>Private treatment bays</span><span>Gait &amp; stair training</span><span>Personal exercise plans</span></div>
+      <div class="ticks"><span>Private treatment bays</span><span>Gait &amp; stair training</span><span>Red light therapy</span></div>
     </div>
     <div class="stage">
       <div class="reel">
@@ -212,7 +227,7 @@
           <source src="../../media/movewell/movewell-hero.webm" type="video/webm">
           <source src="../../media/movewell/movewell-hero.mp4" type="video/mp4">
         </video>
-        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <button class="vbtn" id="vToggle" aria-label="Pause video" aria-pressed="false">❚❚</button>
       </div>
       <div class="chip ig"><i>IG</i><div><b>@movewell.krd</b><span>Follow our clinic</span></div></div>
@@ -248,16 +263,32 @@
     <h2 style="margin-top:14px">A clinic designed for recovery</h2>
     <p class="lead">Bright, calm rooms, private treatment bays and the equipment to take you from pain to full strength.</p>
     <div class="gal">
-      <figure class="g1"><img src="../../media/movewell/hallway.jpg" alt="Clinic hallway with anatomy posters and a bench"><figcaption>Welcome hallway</figcaption></figure>
-      <figure class="g2"><img src="../../media/movewell/stairs.jpg" alt="Wooden training stairs with handrails on a herringbone floor"><figcaption>Stair &amp; gait training</figcaption></figure>
+      <figure class="g1"><img src="../../media/movewell/stairs.jpg" alt="Wooden training stairs with handrails on a herringbone floor" style="object-position:62% 50%"><figcaption>Stair &amp; gait training</figcaption></figure>
+      <figure class="g2"><img src="../../media/movewell/reception.jpg" alt="MOVEWELL reception desk with the logo on the wall" style="object-position:50% 8%"><figcaption>Reception</figcaption></figure>
+      <figure class="g3"><img src="../../media/movewell/exercise.jpg" alt="Patient doing a lunge exercise among dumbbells and exercise balls"><figcaption>Active rehab sessions</figcaption></figure>
       <figure><img src="../../media/movewell/bays.jpg" alt="Treatment bays separated by curtains"><figcaption>Private treatment bays</figcaption></figure>
-      <figure><img src="../../media/movewell/shelves.jpg" alt="Shelves of resistance bands, weights and dumbbells"><figcaption>Exercise equipment</figcaption></figure>
+      <figure><img src="../../media/movewell/hallway.jpg" alt="Clinic hallway with anatomy posters and a bench" style="object-position:40% 45%"><figcaption>Welcome hallway</figcaption></figure>
     </div>
   </div>
 </section>
 
+<!-- RED LIGHT THERAPY · the clinic's red light room, with the Kurdish caption from Instagram -->
+<section class="rl" id="redlight">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Red light therapy</span>
+      <h2 style="margin-top:14px;color:#fff">Recover in the red light room</h2>
+      <p class="lead">Our full-body Optimal Health red light bed is part of the MOVEWELL clinic. Ask your physiotherapist whether red light sessions suit your treatment plan.</p>
+      <p class="ku" lang="ckb" dir="rtl">بەکارهێنانی تیشکی سوور بۆ گەنجکردنەوەی پێست</p>
+      <ul><li>Full-body red light bed</li><li>Calm, private room</li><li>Can be booked alongside physiotherapy</li></ul>
+      <a href="#book" class="btn" style="margin-top:30px;background:#E8364A">Ask about red light sessions →</a>
+    </div>
+    <div class="rl-img"><img src="../../media/movewell/redlight.jpg" alt="Optimal Health red light therapy bed glowing red in a purple-lit room"></div>
+  </div>
+</section>
+
 <!-- SERVICES · 6 cards -->
-<section id="services" style="padding-top:0">
+<section id="services">
   <div class="wrap">
     <span class="eyebrow">Services</span>
     <h2 style="margin-top:14px">How we treat</h2>
@@ -267,7 +298,7 @@
       <div class="card"><span class="n">03</span><h3>Post-surgery rehab</h3><p>Structured recovery after joint replacement, ligament repair and fractures.</p></div>
       <div class="card"><span class="n">04</span><h3>Sports injuries</h3><p>Sprains, strains and overuse injuries, with a safe plan back to sport.</p></div>
       <div class="card"><span class="n">05</span><h3>Gait &amp; balance</h3><p>Stair and walking training to rebuild confidence and prevent falls.</p></div>
-      <div class="card"><span class="n">06</span><h3>Posture &amp; desk pain</h3><p>Ease the neck and back strain that comes from long hours at a desk or on the phone.</p></div>
+      <div class="card"><span class="n">06</span><h3>Red light therapy</h3><p>Sessions on our full-body Optimal Health red light bed. Ask us whether it suits your plan.</p></div>
     </div>
   </div>
 </section>
@@ -293,8 +324,8 @@
     <div class="reels">
       <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><video muted loop playsinline autoplay poster="../../media/movewell/movewell-hero-poster.jpg"><source src="../../media/movewell/movewell-hero.webm" type="video/webm"><source src="../../media/movewell/movewell-hero.mp4" type="video/mp4"></video><span class="cap">Clinic tour</span></a>
       <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><img src="../../media/movewell/shelves.jpg" alt=""><span class="play">▶</span><span class="cap">Our equipment</span></a>
-      <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><img src="../../media/movewell/stairs.jpg" alt="" style="object-position:62% 50%"><span class="play">▶</span><span class="cap">Stair training</span></a>
-      <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><img src="../../media/movewell/posters.jpg" alt="" style="object-position:25% 50%"><span class="play">▶</span><span class="cap">Know your spine</span></a>
+      <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><img src="../../media/movewell/exercise.jpg" alt="" style="object-position:40% 50%"><span class="play">▶</span><span class="cap">Rehab in action</span></a>
+      <a class="r" href="https://www.instagram.com/movewell.krd/" target="_blank" rel="noopener"><img src="../../media/movewell/redlight.jpg" alt="" style="object-position:50% 50%"><span class="play">▶</span><span class="cap">Red light therapy</span></a>
     </div>
   </div>
 </section>
@@ -318,7 +349,7 @@
     <div>
       <span class="eyebrow">Book an appointment</span>
       <h2 style="margin-top:14px">Start feeling better</h2>
-      <p style="color:#C3CBE6;margin-top:14px;max-width:440px">Send a message and our team will reply with the next available time.</p>
+      <p style="color:#C9CCF5;margin-top:14px;max-width:440px">Send a message and our team will reply with the next available time.</p>
       <div class="contact">
         <a href="#book"><i class="wa">WA</i><div>WhatsApp<small>Fastest way to book</small></div><span class="todo">add number</span></a>
         <div><i class="ph">☎</i><div>Phone<small>+964 ··· ··· ····</small></div><span class="todo">add number</span></div>
@@ -328,7 +359,7 @@
     </div>
     <form onsubmit="return false">
       <div class="two"><label>Full name<input id="mw-name" autocomplete="name"></label><label>Phone or WhatsApp<input id="mw-tel" type="tel" autocomplete="tel"></label></div>
-      <label>What do you need help with?<select id="mw-need"><option>Back pain</option><option>Neck pain</option><option>Shoulder</option><option>Knee or hip</option><option>Hand or wrist</option><option>After surgery</option><option>Sports injury</option><option>Something else</option></select></label>
+      <label>What do you need help with?<select id="mw-need"><option>Back pain</option><option>Neck pain</option><option>Shoulder</option><option>Knee or hip</option><option>Hand or wrist</option><option>After surgery</option><option>Sports injury</option><option>Red light therapy</option><option>Something else</option></select></label>
       <div class="two"><label>Preferred day<select id="mw-day"><option>Saturday</option><option>Sunday</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option></select></label><label>Preferred time<select id="mw-time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label></div>
       <button class="btn" style="justify-content:center;margin-top:6px">Request appointment</button>
     </form>
@@ -352,7 +383,7 @@
   b.addEventListener('click', () => set(!v.paused));
   if (matchMedia('(prefers-reduced-motion: reduce)').matches){ set(true); document.querySelectorAll('.reels video').forEach(x => x.pause()); }
   v.addEventListener('timeupdate', () => {
-    const seg = (v.duration || 19.4) / bars.length;
+    const seg = (v.duration || 20.4) / bars.length;
     bars.forEach((el,i) => el.style.setProperty('--w', Math.max(0, Math.min(100, (v.currentTime - i*seg) / seg * 100)) + '%'));
   });
 </script>
