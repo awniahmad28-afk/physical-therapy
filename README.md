@@ -2,6 +2,14 @@
 
 Open **`index.html`** in a browser to see the designs side by side with live thumbnails.
 
+## MOVEWELL (your clinic)
+
+`designs/movewell/movewell.html` is built from the MOVEWELL clinic itself. It uses the logo (redrawn as a crisp graphic) and the tagline "Transforming Pain into Power". Colours come from the rooms: logo navy `#2A3D7E`, wall linen `#F6F4F0`, herringbone floor `#ECEAE6`, walnut `#7A4E36`, curtain peach `#E2B08C` and the poster glow `#EE7A2A`.
+
+- **Hero:** a vertical 9:16 reel in a phone-style frame on a herringbone "floor" panel. It's currently a montage made from clinic photos (`media/movewell/movewell-hero.*`). Replace it with a real Instagram reel.
+- **Photos:** `media/movewell/*.jpg` were cropped from the clinic's Instagram stories. Swap in the original photos for sharper images.
+- **Still to add:** team portraits, WhatsApp and phone numbers, address and opening hours (marked "add" on the page).
+
 ## The Video Collection
 
 Four designs in `designs/video/`, each with a different look and layout, and each opening with a video hero. Media paths start with `../../media/`. Until you add your own footage, the videos play ambient demo films from `media/demo/` (WebM + MP4). Replace each `<source>` and `poster`; an MP4 alone is fine.
