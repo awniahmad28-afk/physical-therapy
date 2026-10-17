@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video 1 · Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Meridian: Swiss clinical precision. A strict 12-column grid with hairline rules, condensed type and monospaced data.
+     Hero: VIDEO in a grid cell beside the headline, with a live "next available" panel over it. */
+  :root{
+    --paper:#F4F3EF; --ink:#111317; --cobalt:#2340D8; --rule:#CFCDC6; --grey:#6B6A66; --mint:#2F9A6E; --white:#FFFFFF;
+    --ph1:#E7E6E1; --ph2:#DFDDD7; --phText:#8C8A83;
+    --head:"Archivo","Arial Narrow",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--head);font-variation-settings:"wdth" 100;color:var(--ink);background:var(--paper);line-height:1.55;font-size:16px}
+  h1,h2,h3{font-family:var(--head);font-weight:800;font-variation-settings:"wdth" 70;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 32px}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 22px;background:var(--cobalt);color:#fff;font:600 14px var(--head);letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+  .btn:focus-visible,button:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  section{padding:120px 0;border-top:1px solid var(--rule)}
+  .sec-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-bottom:56px}
+  .sec-head .mono{grid-column:span 3;color:var(--grey);padding-top:10px}
+  .sec-head h2{grid-column:span 9;font-size:clamp(44px,6vw,92px)}
+
+  /* ---------- MEDIA PLACEHOLDER SYSTEM ---------- */
+  .media{position:relative;aspect-ratio:var(--ar,16/9);overflow:hidden;
+    background:repeating-linear-gradient(135deg,var(--ph1) 0 14px,var(--ph2) 14px 28px)}
+  .media::after{content:attr(data-label);position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;white-space:pre-line;font:500 11px/1.6 var(--mono);color:var(--phText);padding:0 12px}
+  .media>img,.media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .media>img[src=""],.media>video[src=""]{display:none}
+
+  /* top status bar + nav */
+  .status{border-bottom:1px solid var(--rule)}
+  .status .wrap{display:flex;justify-content:space-between;gap:16px;height:36px;align-items:center;color:var(--grey)}
+  .status b{color:var(--mint);font-weight:500}
+  nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{display:flex;align-items:center;gap:10px;font:800 22px var(--head);font-variation-settings:"wdth" 80;text-transform:uppercase;letter-spacing:.02em}
+  .logo i{width:18px;height:18px;background:var(--cobalt)}
+  .links{display:flex;gap:32px;font-size:14px;font-weight:500}
+
+  /* hero grid: text 5 cols / video 7 cols */
+  .hero{border-top:1px solid var(--rule);padding:0}
+  .hero .grid{min-height:calc(100vh - 112px - 104px)}
+  .hero .txt{grid-column:span 5;padding:56px 0;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+  .hero h1{font-size:clamp(52px,6.1vw,112px)}
+  .hero h1 span{color:var(--cobalt)}
+  .hero p{max-width:440px;color:#3D3C39;font-size:18px;margin:24px 0 32px}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .vcell{grid-column:span 7;position:relative;border-left:1px solid var(--rule);overflow:hidden;background:var(--ph1);min-height:520px}
+  .vcell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vcell .corner{position:absolute;z-index:2;color:var(--ink);background:rgba(244,243,239,.88);padding:6px 10px}
+  .vcell .tl{left:20px;top:20px}.vcell .tr{right:20px;top:20px}
+  .slots{position:absolute;left:20px;bottom:20px;z-index:2;background:var(--white);width:min(340px,calc(100% - 40px));border:1px solid var(--rule)}
+  .slots header{display:flex;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--rule)}
+  .slots li{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--rule);font-size:14px}
+  .slots li:last-child{border-bottom:0}
+  .slots .dot{width:8px;height:8px;border-radius:50%;background:var(--mint)}
+  .slots a{color:var(--cobalt);font-weight:600;font-size:13px}
+  .vbtn{position:absolute;right:20px;bottom:20px;z-index:2;background:var(--ink);color:#fff;border:none;font:500 12px var(--mono);padding:10px 14px;cursor:pointer}
+
+  /* stats ticker */
+  .stats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .stats .grid{grid-template-columns:repeat(4,1fr);gap:0}
+  .stats div{padding:24px;border-left:1px solid var(--rule)}
+  .stats div:first-child{border-left:0;padding-left:0}
+  .stats b{display:block;font:800 44px/1 var(--head);font-variation-settings:"wdth" 70;font-variant-numeric:tabular-nums}
+  .stats span{color:var(--grey)}
+
+  /* body map */
+  .bodymap{display:grid;grid-template-columns:5fr 7fr;gap:24px;align-items:stretch}
+  .figure{position:relative;background:var(--white);border:1px solid var(--rule);display:grid;place-items:center;padding:32px;min-height:560px}
+  .fig-in{position:relative;width:min(240px,62%);aspect-ratio:200/440}
+  .figure svg{position:absolute;inset:0;width:100%;height:100%}
+  .figure svg *{fill:#E4E2DC;stroke:#BDBAB2;stroke-width:1.5}
+  .spot{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;border:none;background:rgba(35,64,216,.18);cursor:pointer;display:grid;place-items:center}
+  .spot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--cobalt)}
+  .spot[aria-pressed="true"]{background:var(--cobalt);box-shadow:0 0 0 6px rgba(35,64,216,.18)}
+  .spot[aria-pressed="true"]::after{background:#fff}
+  .spot span{position:absolute;left:34px;white-space:nowrap;font:500 11px var(--mono);color:var(--ink);background:var(--paper);padding:2px 6px;pointer-events:none}
+  .panel{border:1px solid var(--rule);background:var(--white);padding:40px;display:flex;flex-direction:column;gap:24px}
+  .panel h3{font-size:clamp(40px,4.4vw,64px)}
+  .panel ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+  .panel li{padding:14px 0;border-bottom:1px solid var(--rule);font-size:15px}
+  .panel li:nth-child(odd){padding-right:16px}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule)}
+  .facts div{padding:16px;border-left:1px solid var(--rule)}
+  .facts div:first-child{border-left:0}
+  .facts b{display:block;font:700 26px var(--head);font-variation-settings:"wdth" 75}
+  .facts span{color:var(--grey)}
+
+  /* treatment index table */
+  .tbl{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:820px}
+  th{text-align:left;font:500 11px var(--mono);color:var(--grey);text-transform:uppercase;letter-spacing:.06em;padding:12px 16px 12px 0;border-bottom:1.5px solid var(--ink)}
+  td{padding:22px 16px 22px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+  td:first-child{font:800 28px/1 var(--head);font-variation-settings:"wdth" 72;text-transform:uppercase}
+  td.m{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+  tbody tr{transition:background .2s,color .2s}
+  tbody tr:hover{background:var(--cobalt);color:#fff}
+  tbody tr:hover td.m{color:#fff}
+
+  /* method + chart */
+  .method{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .method .media{--ar:4/3}
+  .method .n{font:500 12px var(--mono);color:var(--cobalt);margin:20px 0 8px}
+  .method h3{font-size:36px;margin-bottom:8px}
+  .method p{color:#3D3C39;font-size:15px}
+  .chart{margin-top:72px;border:1px solid var(--rule);background:var(--white);padding:32px}
+  .chart header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  .chart svg{width:100%;height:auto;display:block}
+  .chart text{font:500 11px var(--mono);fill:var(--grey)}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .team .media{--ar:1/1}
+  .team h3{font-size:28px;margin:16px 0 8px}
+  .team dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;border-top:1px solid var(--rule);padding-top:10px}
+  .team dt{color:var(--grey)}
+
+  /* booking stepper */
+  .book{display:grid;grid-template-columns:5fr 7fr;gap:24px}
+  .book h2{font-size:clamp(44px,5vw,80px)}
+  .stepper{border:1px solid var(--rule);background:var(--white)}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule)}
+  .tabs button{background:none;border:none;border-left:1px solid var(--rule);padding:16px;text-align:left;font:500 12px var(--mono);color:var(--grey);cursor:pointer}
+  .tabs button:first-child{border-left:0}
+  .tabs button[aria-selected="true"]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--cobalt)}
+  .step{padding:32px;display:grid;gap:20px}
+  .step[hidden]{display:none}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip input{position:absolute;opacity:0}
+  .chip span{display:inline-block;padding:12px 16px;border:1px solid var(--rule);font-size:14px;cursor:pointer}
+  .chip input:checked + span{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip input:focus-visible + span{outline:2px solid var(--cobalt);outline-offset:2px}
+  .step label.f{display:grid;gap:6px;font:500 11px var(--mono);color:var(--grey);text-transform:uppercase}
+  .step input.t{padding:14px;border:1px solid var(--rule);font:inherit;font-size:16px;color:var(--ink)}
+  .step .nav{display:flex;justify-content:space-between;gap:12px}
+
+  footer{border-top:1px solid var(--ink);padding:48px 0 32px}
+  footer .grid{gap:24px}
+  footer .c{grid-column:span 3}
+  footer .c:first-child{grid-column:span 6}
+  footer small{display:block;margin-top:48px;color:var(--grey)}
+
+  .back{position:fixed;left:16px;bottom:16px;z-index:50;background:var(--ink);color:#fff;font:500 12px var(--mono);padding:8px 12px}
+
+  @media (max-width:960px){
+    .links,.status span:last-child{display:none}
+    .hero .txt,.vcell{grid-column:1/-1}
+    .vcell{border-left:0;min-height:72vh}
+    .stats .grid{grid-template-columns:1fr 1fr}
+    .stats div:nth-child(3){border-left:0;padding-left:0}
+    .sec-head .mono,.sec-head h2{grid-column:1/-1}
+    .bodymap,.book,.method{grid-template-columns:1fr}
+    .team{grid-template-columns:1fr 1fr}
+    .panel{padding:24px}
+    .panel ul{grid-template-columns:1fr}
+    footer .c,footer .c:first-child{grid-column:1/-1}
+    section{padding:80px 0}
+    .wrap{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="status mono"><div class="wrap"><span>Meridian Physiotherapy · Clinic 01, Canal Street</span><span><b>●</b> Open now · Closes 19:00</span></div></div>
+<header class="wrap"><nav>
+  <div class="logo"><i></i>Meridian</div>
+  <div class="links"><a href="#map">Conditions</a><a href="#index">Treatments</a><a href="#method">Method</a><a href="#team">Team</a></div>
+  <a href="#book" class="btn">Book assessment</a>
+</nav></header>
+
+<!-- HERO · 12-col grid: headline (5) / VIDEO cell (7) with appointment panel over it -->
+<section class="hero">
+  <div class="wrap grid">
+    <div class="txt">
+      <div class="mono" style="color:var(--grey)">[ Physiotherapy, measured ]</div>
+      <div>
+        <h1>Precise care.<br><span>Measurable</span> recovery.</h1>
+        <p>Evidence-based physiotherapy with clear goals, tracked progress and a plan you can see from the first session.</p>
+        <div class="ctas"><a href="#book" class="btn">Book assessment →</a><a href="#map" class="btn ghost">Where does it hurt?</a></div>
+      </div>
+      <div class="mono" style="color:var(--grey)">Same-week appointments · Most insurers accepted</div>
+    </div>
+    <div class="vcell">
+      <!-- MEDIA ZONE · HERO VIDEO · 1920×1080 · 16:9 · MP4 (H.264), muted loop 10–20s.
+           Replace the two sources and the poster with your own film (an MP4 alone is fine). The demo file is an ambient placeholder. -->
+      <video class="hero-video" poster="../../media/demo/meridian-hero-poster.jpg" autoplay muted loop playsinline>
+        <source src="../../media/demo/meridian-hero.webm" type="video/webm">
+        <source src="../../media/demo/meridian-hero.mp4" type="video/mp4">
+      </video>
+      <span class="corner tl mono">FIG. 01 · Treatment room</span>
+      <span class="corner tr mono">Demo footage · replace with your film</span>
+      <div class="slots">
+        <header class="mono"><span>Next available</span><span style="color:var(--grey)">This week</span></header>
+        <ul>
+          <li><i class="dot"></i><span>Tue 21 Oct · 08:30</span><a href="#book">Book</a></li>
+          <li><i class="dot"></i><span>Tue 21 Oct · 17:45</span><a href="#book">Book</a></li>
+          <li><i class="dot"></i><span>Wed 22 Oct · 12:15</span><a href="#book">Book</a></li>
+        </ul>
+      </div>
+      <button class="vbtn" data-vtoggle aria-pressed="false">❚❚ Pause</button>
+    </div>
+  </div>
+</section>
+
+<div class="stats"><div class="wrap"><div class="grid">
+  <div><b>4,812</b><span class="mono">Patients treated in 2025</span></div>
+  <div><b>92%</b><span class="mono">Report less pain by session 6</span></div>
+  <div><b>6.2</b><span class="mono">Average sessions per plan</span></div>
+  <div><b>48 h</b><span class="mono">To your first appointment</span></div>
+</div></div></div>
+
+<!-- BODY MAP · clickable regions on a figure / details panel -->
+<section id="map" style="border-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="mono">01 / Conditions</span><h2>Where does it hurt?</h2></div>
+    <div class="bodymap">
+      <div class="figure">
+        <div class="fig-in">
+        <svg viewBox="0 0 200 440" aria-hidden="true">
+          <circle cx="100" cy="38" r="26"/>
+          <rect x="88" y="62" width="24" height="18" rx="6"/>
+          <rect x="58" y="78" width="84" height="132" rx="26"/>
+          <rect x="30" y="86" width="24" height="120" rx="12" transform="rotate(8 42 146)"/>
+          <rect x="146" y="86" width="24" height="120" rx="12" transform="rotate(-8 158 146)"/>
+          <rect x="62" y="200" width="76" height="40" rx="18"/>
+          <rect x="66" y="226" width="30" height="190" rx="14"/>
+          <rect x="104" y="226" width="30" height="190" rx="14"/>
+        </svg>
+        <button class="spot" style="left:50%;top:15.9%" data-r="neck" aria-pressed="false"><span>Neck</span></button>
+        <button class="spot" style="left:21%;top:22%" data-r="shoulder" aria-pressed="false"><span>Shoulder</span></button>
+        <button class="spot" style="left:50%;top:34%" data-r="back" aria-pressed="true"><span>Back</span></button>
+        <button class="spot" style="left:40%;top:50.5%" data-r="hip" aria-pressed="false"><span>Hip</span></button>
+        <button class="spot" style="left:59.5%;top:72.5%" data-r="knee" aria-pressed="false"><span>Knee</span></button>
+        <button class="spot" style="left:40.5%;top:92%" data-r="ankle" aria-pressed="false"><span>Ankle &amp; foot</span></button>
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <span class="mono" id="rTag" style="color:var(--cobalt)">Region 03 / Lower &amp; upper back</span>
+        <h3 id="rName">Back</h3>
+        <p id="rText" style="color:#3D3C39;max-width:560px">The most common reason people visit us. We combine manual therapy with progressive strength work to settle pain and stop it returning.</p>
+        <ul id="rList"><li>Lower back pain</li><li>Sciatica</li><li>Disc injury</li><li>Postural pain</li><li>Spinal stiffness</li><li>Post-surgical spine rehab</li></ul>
+        <div class="facts"><div><b id="rSess">6–8</b><span class="mono">Typical sessions</span></div><div><b id="rFirst">60 min</b><span class="mono">First visit</span></div><div><b id="rRel">87%</b><span class="mono">Improved by week 4</span></div></div>
+        <div><a href="#book" class="btn">Book for this region →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENT INDEX · data table -->
+<section id="index">
+  <div class="wrap">
+    <div class="sec-head"><span class="mono">02 / Treatments</span><h2>Treatment index</h2></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Treatment</th><th>Best for</th><th>Session</th><th>Typical course</th></tr></thead>
+      <tbody>
+        <tr><td>Manual therapy</td><td>Joint stiffness, back and neck pain</td><td class="m">45 min</td><td class="m">4–8 sessions</td></tr>
+        <tr><td>Sports rehab</td><td>Sprains, strains, return to sport</td><td class="m">45 min</td><td class="m">6–10 sessions</td></tr>
+        <tr><td>Post-surgical</td><td>Joint replacement, ACL, shoulder repair</td><td class="m">60 min</td><td class="m">8–16 sessions</td></tr>
+        <tr><td>Vestibular</td><td>Dizziness, vertigo, balance</td><td class="m">45 min</td><td class="m">3–6 sessions</td></tr>
+        <tr><td>Dry needling</td><td>Trigger points, muscle tension</td><td class="m">30 min</td><td class="m">Added to plan</td></tr>
+        <tr><td>Gait analysis</td><td>Running injuries, foot and knee pain</td><td class="m">75 min</td><td class="m">1 session + review</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- METHOD · 3 columns with IMAGES + example progress chart -->
+<section id="method">
+  <div class="wrap">
+    <div class="sec-head"><span class="mono">03 / Method</span><h2>Assess. Treat. Measure.</h2></div>
+    <div class="method">
+      <div><figure class="media" data-label="IMAGE&#10;1200 × 900 · 4:3"><img src="" alt=""></figure><div class="n">Step 01</div><h3>Assess</h3><p>Strength, range and movement tests set your baseline in the first hour.</p></div>
+      <div><figure class="media" data-label="IMAGE&#10;1200 × 900 · 4:3"><img src="" alt=""></figure><div class="n">Step 02</div><h3>Treat</h3><p>Hands-on care plus a focused programme on our exercise app.</p></div>
+      <div><figure class="media" data-label="IMAGE&#10;1200 × 900 · 4:3"><img src="" alt=""></figure><div class="n">Step 03</div><h3>Measure</h3><p>We re-test every third session, so you can see your progress in numbers.</p></div>
+    </div>
+    <div class="chart">
+      <header><span class="mono">Average pain score by session, back pain patients (example data)</span><span class="mono" style="color:var(--cobalt)">● Pain score, 0–10</span></header>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Example chart: average pain score falls from 6.8 at session 1 to 2.1 at session 8">
+        <g stroke="#E4E2DC" stroke-width="1">
+          <line x1="40" y1="20" x2="880" y2="20"/><line x1="40" y1="80" x2="880" y2="80"/><line x1="40" y1="140" x2="880" y2="140"/><line x1="40" y1="200" x2="880" y2="200"/>
+        </g>
+        <line x1="40" y1="230" x2="880" y2="230" stroke="#111317" stroke-width="1"/>
+        <text x="0" y="24">8</text><text x="0" y="84">6</text><text x="0" y="144">4</text><text x="0" y="204">2</text>
+        <path d="M40 56 L160 77 L280 104 L400 128 L520 155 L640 176 L760 191 L880 197 L880 230 L40 230 Z" fill="rgba(35,64,216,.08)"/>
+        <polyline points="40,56 160,77 280,104 400,128 520,155 640,176 760,191 880,197" fill="none" stroke="#2340D8" stroke-width="2.5"/>
+        <g fill="#2340D8"><circle cx="40" cy="56" r="4"/><circle cx="880" cy="197" r="6"/></g>
+        <text x="52" y="50" style="fill:#111317">6.8</text><text x="842" y="186" style="fill:#2340D8">2.1</text>
+        <g><text x="36" y="252">S1</text><text x="156" y="252">S2</text><text x="276" y="252">S3</text><text x="396" y="252">S4</text><text x="516" y="252">S5</text><text x="636" y="252">S6</text><text x="756" y="252">S7</text><text x="864" y="252">S8</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM · 4 square PORTRAITS with spec lines -->
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head"><span class="mono">04 / Team</span><h2>The clinicians</h2></div>
+    <div class="team">
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 800 · 1:1"><img src="" alt=""></figure><h3>Dr. Ana Ruiz</h3><dl class="mono"><dt>Role</dt><dd>Clinical lead, DPT</dd><dt>Focus</dt><dd>Spine</dd><dt>Since</dt><dd>2014</dd></dl></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 800 · 1:1"><img src="" alt=""></figure><h3>Marcus Lee</h3><dl class="mono"><dt>Role</dt><dd>Sports physiotherapist</dd><dt>Focus</dt><dd>Knee, ACL</dd><dt>Since</dt><dd>2017</dd></dl></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 800 · 1:1"><img src="" alt=""></figure><h3>Priya Shah</h3><dl class="mono"><dt>Role</dt><dd>Vestibular specialist</dd><dt>Focus</dt><dd>Balance</dd><dt>Since</dt><dd>2019</dd></dl></div>
+      <div><figure class="media" data-label="PORTRAIT&#10;800 × 800 · 1:1"><img src="" alt=""></figure><h3>Tom Okoro</h3><dl class="mono"><dt>Role</dt><dd>Physiotherapist</dd><dt>Focus</dt><dd>Running</dd><dt>Since</dt><dd>2021</dd></dl></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING · 3-step form -->
+<section id="book">
+  <div class="wrap book">
+    <div><span class="mono" style="color:var(--grey)">05 / Book</span><h2 style="margin-top:16px">Book in three steps</h2><p style="color:#3D3C39;margin-top:20px;max-width:380px">No referral needed. We'll confirm by text within the hour during opening times.</p><p class="mono" style="margin-top:24px">12 Canal Street · (555) 014-2200</p></div>
+    <form class="stepper" onsubmit="return false">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-step="0">01 · Region</button>
+        <button type="button" role="tab" aria-selected="false" data-step="1">02 · Time</button>
+        <button type="button" role="tab" aria-selected="false" data-step="2">03 · Details</button>
+      </div>
+      <div class="step">
+        <span class="mono" style="color:var(--grey)">What needs attention?</span>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="reg" id="r1"><span>Neck</span></label><label class="chip"><input type="radio" name="reg" id="r2"><span>Shoulder</span></label>
+          <label class="chip"><input type="radio" name="reg" id="r3" checked><span>Back</span></label><label class="chip"><input type="radio" name="reg" id="r4"><span>Hip</span></label>
+          <label class="chip"><input type="radio" name="reg" id="r5"><span>Knee</span></label><label class="chip"><input type="radio" name="reg" id="r6"><span>Ankle &amp; foot</span></label>
+          <label class="chip"><input type="radio" name="reg" id="r7"><span>Not sure</span></label>
+        </div>
+        <div class="nav"><span></span><button type="button" class="btn" data-next>Next →</button></div>
+      </div>
+      <div class="step" hidden>
+        <span class="mono" style="color:var(--grey)">Pick a time</span>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="tm" id="m1" checked><span>Tue 21 · 08:30</span></label><label class="chip"><input type="radio" name="tm" id="m2"><span>Tue 21 · 17:45</span></label>
+          <label class="chip"><input type="radio" name="tm" id="m3"><span>Wed 22 · 12:15</span></label><label class="chip"><input type="radio" name="tm" id="m4"><span>Thu 23 · 07:30</span></label>
+          <label class="chip"><input type="radio" name="tm" id="m5"><span>Fri 24 · 16:00</span></label>
+        </div>
+        <div class="nav"><button type="button" class="btn ghost" data-prev>← Back</button><button type="button" class="btn" data-next>Next →</button></div>
+      </div>
+      <div class="step" hidden>
+        <label class="f">Full name<input class="t" id="mb-name" autocomplete="name"></label>
+        <label class="f">Mobile<input class="t" id="mb-tel" type="tel" autocomplete="tel"></label>
+        <div class="nav"><button type="button" class="btn ghost" data-prev>← Back</button><button class="btn">Confirm request</button></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap grid">
+    <div class="c"><div class="logo"><i></i>Meridian</div><p class="mono" style="margin-top:12px;color:var(--grey)">Physiotherapy, measured.</p></div>
+    <div class="c mono">12 Canal Street<br>Mon–Fri 07:00–19:00<br>Sat 08:00–13:00</div>
+    <div class="c mono">(555) 014-2200<br>hello@meridianphysio.com</div>
+    <small class="mono" style="grid-column:1/-1">© 2026 Meridian Physiotherapy</small>
+  </div>
+</footer>
+
+<a class="back" href="../../index.html">← All designs</a>
+
+<script>
+  // Hero video: pause/play, and stay still for reduced-motion visitors
+  document.querySelectorAll('[data-vtoggle]').forEach(b => {
+    const v = b.closest('section').querySelector('.hero-video');
+    const set = p => { p ? v.pause() : v.play().catch(()=>{}); b.textContent = p ? '▶ Play' : '❚❚ Pause'; b.setAttribute('aria-pressed', p); };
+    b.addEventListener('click', () => set(!v.paused));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
+  });
+
+  // Body map
+  const R = {
+    neck:{tag:'Region 01 / Cervical spine',name:'Neck',text:'Stiffness and pain from desk work, whiplash or poor sleep. We restore movement and build support through the upper back.',list:['Desk neck','Whiplash','Tension headache','Trapped nerve','Stiffness','Jaw pain'],sess:'4–6',first:'60 min',rel:'89%'},
+    shoulder:{tag:'Region 02 / Shoulder girdle',name:'Shoulder',text:'From frozen shoulder to rotator cuff repair, we rebuild range first and then strength.',list:['Rotator cuff','Frozen shoulder','Impingement','Dislocation','Post-surgical','Tendinopathy'],sess:'6–10',first:'60 min',rel:'84%'},
+    back:{tag:'Region 03 / Lower & upper back',name:'Back',text:'The most common reason people visit us. We combine manual therapy with progressive strength work to settle pain and stop it returning.',list:['Lower back pain','Sciatica','Disc injury','Postural pain','Spinal stiffness','Post-surgical spine rehab'],sess:'6–8',first:'60 min',rel:'87%'},
+    hip:{tag:'Region 04 / Hip & pelvis',name:'Hip',text:'Hip pain often affects walking and sleep. We treat the joint and the muscles around it to get you moving comfortably.',list:['Arthritis','Hip replacement','Bursitis','Groin strain','Pelvic pain','Labral tear'],sess:'6–10',first:'60 min',rel:'82%'},
+    knee:{tag:'Region 05 / Knee',name:'Knee',text:'Sports injuries, arthritis and surgery recovery, with strength testing to show when you are ready to return.',list:['ACL rehab','Meniscus','Runner’s knee','Knee replacement','Patellar tendon','Arthritis'],sess:'6–12',first:'60 min',rel:'85%'},
+    ankle:{tag:'Region 06 / Ankle & foot',name:'Ankle & foot',text:'Sprains, heel pain and Achilles problems, with gait analysis to fix the cause.',list:['Ankle sprain','Plantar fasciitis','Achilles','Flat feet','Fracture rehab','Shin splints'],sess:'4–8',first:'60 min',rel:'88%'}
+  };
+  const $ = id => document.getElementById(id);
+  document.querySelectorAll('.spot').forEach(s => s.addEventListener('click', () => {
+    document.querySelectorAll('.spot').forEach(o => o.setAttribute('aria-pressed', o === s));
+    const r = R[s.dataset.r];
+    $('rTag').textContent = r.tag; $('rName').textContent = r.name; $('rText').textContent = r.text;
+    $('rList').innerHTML = r.list.map(x => `<li>${x}</li>`).join('');
+    $('rSess').textContent = r.sess; $('rFirst').textContent = r.first; $('rRel').textContent = r.rel;
+  }));
+
+  // Booking stepper
+  const steps = [...document.querySelectorAll('.step')], tabs = [...document.querySelectorAll('.tabs button')];
+  let cur = 0;
+  const go = i => { cur = i; steps.forEach((s,k) => s.hidden = k !== i); tabs.forEach((t,k) => t.setAttribute('aria-selected', k === i)); };
+  tabs.forEach(t => t.addEventListener('click', () => go(+t.dataset.step)));
+  document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => go(Math.min(2, cur+1))));
+  document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', () => go(Math.max(0, cur-1))));
+</script>
+</body>
+</html>

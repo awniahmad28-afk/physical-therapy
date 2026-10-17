@@ -2,7 +2,20 @@
 
 Open **`index.html`** in a browser to see the designs side by side with live thumbnails.
 
-## The Elegant Collection (current direction)
+## The Video Collection
+
+Four designs in `designs/video/`, each with a different look and layout, and each opening with a video hero. Media paths start with `../../media/`. Until you add your own footage, the videos play ambient demo films from `media/demo/` (WebM + MP4). Replace each `<source>` and `poster`; an MP4 alone is fine.
+
+| Design | Look | Colors | Fonts | Video hero | Signature sections |
+|---|---|---|---|---|---|
+| **Meridian** `v1-meridian.html` | Swiss clinical precision | Paper `#F4F3EF`, Ink `#111317`, Cobalt `#2340D8`, Mint `#2F9A6E` | Archivo / IBM Plex Mono | Video in a 7-column grid cell beside the headline, with a "next available" slots panel on top (1920×1080) | Stats ticker, clickable body map, treatment index table, example progress chart, 3-step booking |
+| **Tide** `v2-tide.html` | Soft, coastal, rounded | Sea `#12343B`, Mist `#E4EDEA`, Sand `#F3EDE3`, Sun `#E8B04B` | Young Serif / Outfit | Full-screen video in a rounded window with a floating glass booking card (1920×1080) | Sentence with inline pill images, rounded bento, swipeable 8-week journey, pool specs, chat-bubble testimonials |
+| **Nord** `v3-nord.html` | Scandinavian calm | Birch `#F1EFEA`, Slate `#2F3A40`, Fjord `#5B7C8D`, Pine `#3E5A4C` | Hanken Grotesk / Newsreader | Triptych of three vertical videos; the hovered panel widens (3 × 1080×1920) | Fixed left sidebar, expanding treatment rows, journal, people list, month calendar booking |
+| **Vertex** `v4-vertex.html` | Bold, typographic | Bone `#EEE9E2`, Oxblood `#4A1C2B`, Blush `#D9B8A9`, Black `#121212` | Bricolage Grotesque / Geist | Video shows only inside giant "MOVE AGAIN" letters, which grow on scroll until the film fills the screen (1920×1080) | Marquee, sticky stacking treatment cards, giant numbers, hover-portrait team list, fill-in-the-blanks booking |
+
+All four have a pause/play control and keep videos paused for visitors whose device asks for reduced motion.
+
+## The Elegant Collection
 
 Three classic, refined designs in `designs/elegant/`, built on the editorial style of Design 4 (Atelier). Media paths from these files start with `../../media/`.
 
